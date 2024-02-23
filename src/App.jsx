@@ -1,18 +1,20 @@
 import React from 'react';
 import Nav from './components/Nav';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Router, Route, Routes } from 'react-router-dom';
 import Beranda from './page/Beranda';
 import Footers from './components/Footer';
+import Register from './page/Register';
+import Login from './page/Login';
 
 export default function App() {
   return (
     <div>
       <Nav />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Beranda />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/" element={<Beranda />} />
+        <Route path='/register' element={<Register />}></Route>
+        <Route path='/login' element={<Login />}></Route>
+      </Routes>
       <Footers />
     </div>
   );
