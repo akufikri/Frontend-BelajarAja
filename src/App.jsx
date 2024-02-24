@@ -7,6 +7,7 @@ import Register from './page/Register';
 import Login from './page/Login';
 import Course from './page/Kelas';
 import DetailCourse from './page/detail/DetailCourse';
+import './App.css'
 
 export default function App() {
   return (

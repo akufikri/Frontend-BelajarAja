@@ -2,13 +2,14 @@ import { Button, Navbar, Dropdown, Avatar } from 'flowbite-react'
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/authHooks';
 import { Link, useLocation } from 'react-router-dom'
+import logo from '../assets/logo-2.png'
 
 const Nav = () => {
       const { logout } = useLogout()
       const { user } = useAuthContext()
       const location = useLocation();
-      const handleRegisterClick = () => {
-            window.location.href = '/register';
+      const handleLoginClick = () => {
+            window.location.href = '/login';
       };
 
       const handleClickLogout = () => {
@@ -16,11 +17,12 @@ const Nav = () => {
       }
       return (
             <>
-                  <Navbar rounded className='fixed w-full z-30'>
+                  <Navbar rounded className='fixed w-full z-30 px-32'>
                         <Navbar.Brand href="/">
-                              <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">belajarAja</span>
+                              {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">belajarAja</span> */}
+                              <img className='w-8 bg-gray-100 rounded-md' src={logo} alt="" />
                         </Navbar.Brand>
-                        <div className="flex md:order-2 gap-4">
+                        <div className="flex md:order-4 gap-7">
                               {user && (
                                     <>
                                           <Dropdown label="" renderTrigger={() => <div>
@@ -39,14 +41,14 @@ const Nav = () => {
                               {
                                     !user && (
                                           <>
-                                                <Button onClick={handleRegisterClick} color='blue' className='rounded-xl px-4'>Daftar</Button>
-                                                <a href='/login' className='pt-2'>Masuk</a>
+                                                <a href='/register' className='pt-2.5 text-sm font-normal'>Daftar</a>
+                                                <Button onClick={handleLoginClick} color='blue' className='rounded-8 text-xs font-normal py-0'>Masuk</Button>
                                           </>
                                     )
                               }
                               <Navbar.Toggle />
                         </div>
-                        <Navbar.Collapse>
+                        <Navbar.Collapse className='me-auto mx-5'>
                               <Navbar.Link as={Link} to='/' active={location.pathname === '/'}>
                                     Home
                               </Navbar.Link>

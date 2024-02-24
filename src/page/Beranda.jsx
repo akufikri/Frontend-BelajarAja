@@ -1,13 +1,16 @@
+import Benefits from "../components/Benefits";
 import CardInfo from "../components/CardInfo";
 import HeroSections from "../components/HeroSections";
-import PreviewContent from "../components/PrevContent";
+import PreviewCourse from "../components/PreviewCourse";
+
 
 const Beranda = () => {
       return (
             <div className="pt-20">
                   <HeroSections />
                   <CardInfo />
-                  <PreviewContent/>
+                  <Benefits />
+                  <PreviewCourse />
             </div>
       )
 }
