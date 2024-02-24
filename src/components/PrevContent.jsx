@@ -15,7 +15,7 @@ const PreviewContent = () => {
                                 <img className='rounded-xl'
                                     width={500}
                                     height={500}
-                                    src="https://flowbite.com/docs/images/blog/image-1.jpg"
+                                    src="https://fakeimg.pl/600x400"
                                     alt="image 1"
                                 />
                             )}
@@ -45,7 +45,7 @@ const PreviewContent = () => {
                                 <img className='rounded-xl'
                                     width={500}
                                     height={500}
-                                    src="https://flowbite.com/docs/images/blog/image-1.jpg"
+                                    src="https://fakeimg.pl/600x400"
                                     alt="image 1"
                                 />
                             )}
@@ -75,7 +75,7 @@ const PreviewContent = () => {
                                 <img className='rounded-xl'
                                     width={500}
                                     height={500}
-                                    src="https://flowbite.com/docs/images/blog/image-1.jpg"
+                                    src="https://fakeimg.pl/600x400"
                                     alt="image 1"
                                 />
                             )}
