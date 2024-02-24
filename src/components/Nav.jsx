@@ -15,9 +15,12 @@ const Nav = () => {
       const handleClickLogout = () => {
             logout()
       }
+      const handleClickSettings = () => {
+            window.location.href = '/user/settings';
+      }
       return (
             <>
-                  <Navbar rounded className='fixed w-full z-30 px-32'>
+                  <Navbar rounded className='fixed w-full z-30 sm:px-32'>
                         <Navbar.Brand href="/">
                               {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">belajarAja</span> */}
                               <img className='w-8 bg-gray-100 rounded-md' src={logo} alt="" />
@@ -31,18 +34,18 @@ const Nav = () => {
                                                 <Dropdown.Header>
                                                       <span className="block truncate text-sm font-medium">{user.email}</span>
                                                 </Dropdown.Header>
-                                                <Dropdown.Item>Dashboard</Dropdown.Item>
-                                                <Dropdown.Item>Settings</Dropdown.Item>
+                                                <Dropdown.Item onClick={handleClickSettings}>Settings</Dropdown.Item>
+                                                <Dropdown.Item>My Course</Dropdown.Item>
                                                 <Dropdown.Divider />
-                                                <Dropdown.Item onClick={handleClickLogout}>Keluar</Dropdown.Item>
+                                                <Dropdown.Item onClick={handleClickLogout}>SignOut</Dropdown.Item>
                                           </Dropdown>
                                     </>
                               )}
                               {
                                     !user && (
                                           <>
-                                                <a href='/register' className='pt-2.5 text-sm font-normal'>Daftar</a>
-                                                <Button onClick={handleLoginClick} color='blue' className='rounded-8 text-xs font-normal py-0'>Masuk</Button>
+                                                <a href='/register' className='pt-2.5 text-sm font-normal'>Register</a>
+                                                <Button onClick={handleLoginClick} color='blue' className='rounded-8 text-xs font-normal py-0'>Login</Button>
                                           </>
                                     )
                               }
@@ -54,6 +57,13 @@ const Nav = () => {
                               </Navbar.Link>
                               <Navbar.Link as={Link} to='/course' active={location.pathname === '/course'} >Course</Navbar.Link>
                               <Navbar.Link href="#">Category</Navbar.Link>
+                              {
+                                    user && (
+                                          <>
+                                                <Navbar.Link href="#">Teach Now</Navbar.Link>
+                                          </>
+                                    )
+                              }
                         </Navbar.Collapse>
                   </Navbar ></>
       )

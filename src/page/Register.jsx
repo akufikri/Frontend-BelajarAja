@@ -1,6 +1,7 @@
 import { Button, Card, Checkbox, Label, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import { useSignUp } from '../hooks/useSignUp';
+import { Link } from 'react-router-dom';
 const Register = () => {
       const [username, setUsername] = useState('');
       const [email, setEmail] = useState('');
@@ -11,6 +12,10 @@ const Register = () => {
             e.preventDefault();
             console.log(username, email, password);
             await signup(username, email, password);
+
+            setUsername('');
+            setEmail('');
+            setPassword('');
       }
       return (
             <>
@@ -46,6 +51,9 @@ const Register = () => {
                                           </Button>
                                           {error && <div className='text-red-500'>{error}</div>}
                                     </form>
+                                    <div className='my-2'>
+                                          <span>Have account ? <Link to='/login'>Login</Link></span>
+                                    </div>
                               </Card>
                         </div>
                   </section >
