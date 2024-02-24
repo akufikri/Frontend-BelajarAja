@@ -9,6 +9,7 @@ const Login = () => {
             e.preventDefault()
 
             await login(email, password)
+            location.href = '/'
       }
       return (
             <>
