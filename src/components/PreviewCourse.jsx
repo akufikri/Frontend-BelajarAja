@@ -2,15 +2,17 @@ import { Card, Button, Rating } from 'flowbite-react';
 const PreviewCourse = () => {
       return (
             <>
-                  <div className="flex justify-center mt-20">
+                  <div className="flex justify-center mt-20 sm:p-0 p-4">
                         <div className="max-w-5xl w-full">
                               <div className='my-7'>
-                                    <h1 className='text-[48px] font-medium'>Our Courses</h1>
+                                    <h1 className='sm:text-[48px] text-2xl font-medium'>Our Courses</h1>
                                     <div className='flex justify-between'>
-                                          <div className='w-9/12'>
-                                                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis repellendus dolore ipsam. Dolore exercitationem aperiam sequi, sint dolorum asperiores. Nisi?</span>
+                                          <div className='w-9/12 pt-5'>
+                                                <span className='sm:text-sm text-xs '>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis repellendus dolore ipsam. </span>
                                           </div>
-                                          <button className='bg-blue-50 px-6 rounded-md'>View all</button>
+                                          <div className='sm:mt-0 mt-5'>
+                                                <button className='bg-blue-50 px-7 rounded-md sm:text-sm text-xs py-2'>View all</button>
+                                          </div>
                                     </div>
 
                               </div>
