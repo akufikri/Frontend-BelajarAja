@@ -14,6 +14,7 @@ const Nav = () => {
 
       const handleClickLogout = () => {
             logout()
+            window.location.href = '/'
       }
       const handleClickSettings = () => {
             window.location.href = '/user/settings';
