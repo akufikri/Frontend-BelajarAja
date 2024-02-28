@@ -32,7 +32,7 @@ export default function App() {
             <Footers />
           </>
         }></Route>
-        <Route path='/Course/:id' element={
+        <Route path='/course/:id' element={
           <>
             <Nav />
             <DetailCourse />
