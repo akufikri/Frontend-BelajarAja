@@ -1,22 +1,36 @@
-import { Card, Button, Rating, TextInput } from 'flowbite-react';
+import { Card, Button, TextInput } from 'flowbite-react';
 import { HiSearch } from 'react-icons/hi';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuthContext } from '../hooks/authHooks';
 const Course = () => {
       const [courses, setCourses] = useState([]);
       const [loading, setLoading] = useState(true);
       const [searchQuery, setSearchQuery] = useState('');
-
+      const navigate = useNavigate();
+      const { user } = useAuthContext();
       const fetchData = async () => {
             try {
-                  const response = await axios.get('https://be-belajaraja.vercel.app/api/course/get');
+                  const token = localStorage.getItem('token');
+                  const response = await axios.get('https://be-belajaraja.vercel.app/api/course/get', {
+                        headers: {
+                              Authorization: `Bearer ${token}`,
+                        },
+                  });
                   setCourses(response.data);
             } catch (error) {
                   console.error('Error fetching data:', error);
             } finally {
                   setLoading(false);
             }
+      };
+      const handleDetailCourse = (id) => {
+
+            if (!user) {
+                  return
+            }
+            navigate(`/course/${id}`);
       };
 
       useEffect(() => {
@@ -59,38 +73,38 @@ const Course = () => {
                                                 <p>No results found for the given search query.</p>
                                           ) : (
                                                 filteredCourses.map((course) => (
-                                                      <Card key={course.id} className="max-w-sm">
-                                                            <img
-                                                                  className='rounded-xl'
-                                                                  width={500}
-                                                                  height={500}
-                                                                  src="https://fakeimg.pl/600x400"
-                                                                  alt="image 1"
-                                                            />
-                                                            <div className="flex justify-between">
-                                                                  <h5 className="text-md font-bold tracking-tight text-gray-900 dark:text-white">
-                                                                        {course.title}
-                                                                  </h5>
-                                                            </div>
-                                                            <p className="font-normal text-gray-700 dark:text-gray-400">
-                                                                  {course.description.length > 100 ? `${course.description.slice(0, 100)}...` : course.description}
-                                                            </p>
-                                                            <div className="flex gap-3 justify-between">
-                                                                  <Button className='px-5' color='blue'> <i className="fa-regular fa-play"></i> <span className='ms-2'>Learn</span></Button>
-                                                                  <Rating>
-                                                                        <Rating.Star />
-                                                                        <Rating.Star />
-                                                                        <Rating.Star />
-                                                                        <Rating.Star />
-                                                                  </Rating>
-                                                            </div>
-                                                      </Card>
+                                                      <div key={course.id}>
+                                                            <Card className="max-w-sm">
+                                                                  <img
+                                                                        className='rounded-xl'
+                                                                        width={500}
+                                                                        height={500}
+                                                                        src="https://fakeimg.pl/600x400"
+                                                                        alt="image 1"
+                                                                  />
+                                                                  <div className="flex justify-between">
+                                                                        <h5 className="text-md font-bold tracking-tight text-gray-900 dark:text-white">
+                                                                              {course.title}
+                                                                        </h5>
+                                                                  </div>
+                                                                  <p className="font-normal text-gray-700 dark:text-gray-400">
+                                                                        {course.description.length > 50 ? `${course.description.slice(0, 50)}...` : course.description}
+                                                                  </p>
+                                                                  <div className="flex gap-3 justify-between">
+                                                                        <Button onClick={() => handleDetailCourse(course._id)} >
+                                                                              <i className="fa-regular fa-play"></i>{" "}
+                                                                              <span className="ms-2">Learn</span>
+                                                                        </Button>
+
+                                                                  </div>
+                                                            </Card>
+                                                      </div>
                                                 ))
                                           )}
                                     </div>
                               )}
                         </div>
-                  </div>
+                  </div >
             </>
       );
 }
