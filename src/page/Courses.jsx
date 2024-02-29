@@ -79,8 +79,6 @@ const Course = () => {
                                                             <Card className="max-w-sm border-none shadow-none">
                                                                   <img
                                                                         className='rounded-xl'
-                                                                        width={500}
-                                                                        height={500}
                                                                         src="https://fakeimg.pl/600x400"
                                                                         alt="image 1"
                                                                   />
@@ -92,12 +90,11 @@ const Course = () => {
                                                                   <p className="font-normal text-gray-700 dark:text-gray-400">
                                                                         {course.description.length > 50 ? `${course.description.slice(0, 50)}...` : course.description}
                                                                   </p>
-                                                                  <div className="flex gap-3 justify-between">
+                                                                  <div className="grid">
                                                                         <Button onClick={() => handleDetailCourse(course._id)} >
                                                                               <i className="fa-regular fa-play"></i>{" "}
                                                                               <span className="ms-2">Learn</span>
                                                                         </Button>
-
                                                                   </div>
                                                             </Card>
                                                       </div>
