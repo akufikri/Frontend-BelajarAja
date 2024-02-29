@@ -22,7 +22,7 @@ const SignUp = () => {
             <>
                   <section>
                         <div className="flex justify-center items-center w-full h-screen gap-4">
-                              <Testimoni />
+                              {/* <Testimoni /> */}
                               <Card className="max-w-md w-full shadow-none border-0">
                                     <div className='text-center my-7'>
                                           <h1 className='text-[48px] font-medium my-2'>SignUp</h1>

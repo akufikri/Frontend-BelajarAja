@@ -16,42 +16,42 @@ import TechNow from './page/TechNow';
 export default function App() {
   const { user } = useAuthContext()
   return (
-    <div className='bg-gray-50'>
+    <div className='bg-gray-50 h-full'>
 
       <Routes>
         <Route path="/" element={
           <>
             <Nav />
             <Beranda />
-            <Footers />
+
           </>
         } ></Route>
         <Route path='/course' element={
           <>
             <Nav />
             <Course />
-            <Footers />
+
           </>
         }></Route>
         <Route path='/course/:id' element={
           <>
             <Nav />
             <DetailCourse />
-            <Footers />
+
           </>
         }></Route>
         <Route path='/user/settings' element={
           <>
             <Nav />
             <AccountSettings />
-            <Footers />
+
           </>
         }></Route>
         <Route path='/technow' element={
           <>
             <Nav />
             <TechNow />
-            <Footers />
+
           </>
         }>
 
@@ -60,14 +60,14 @@ export default function App() {
           <>
             <Nav />
             {!user ? <Register /> : <Navigate to='/' />}
-            <Footers />
+
           </>
         }></Route>
         <Route path='/login' element={
           <>
             <Nav />
             {!user ? <Login /> : <Navigate to="/" />}
-            <Footers />
+
           </>
         }></Route>
         <Route path='*' element={<Nofound />}></Route>
