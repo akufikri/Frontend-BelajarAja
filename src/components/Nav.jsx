@@ -45,7 +45,7 @@ const Nav = () => {
                               {
                                     !user && (
                                           <>
-                                                <a href='/register' className='pt-2.5 text-sm font-normal'>Register</a>
+                                                <a href='/signup' className='pt-2.5 text-sm font-normal'>Signup</a>
                                                 <Button onClick={handleLoginClick} color='blue' className='rounded-8 text-xs font-normal py-0'>Login</Button>
                                           </>
                                     )
@@ -61,7 +61,7 @@ const Nav = () => {
                               {
                                     user && (
                                           <>
-                                                <Navbar.Link href="#">Teach Now</Navbar.Link>
+                                                <Navbar.Link as={Link} to="/technow" active={location.pathname === '/technow'}>Teach Now</Navbar.Link>
                                           </>
                                     )
                               }
