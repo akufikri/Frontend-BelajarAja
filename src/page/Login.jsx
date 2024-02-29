@@ -2,7 +2,7 @@ import { Button, Card, Checkbox, Label, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import { useLogin } from '../hooks/useLogin'
 import { Link } from 'react-router-dom';
-import Testimoni from '../components/Testimoni';
+// import Testimoni from '../components/Testimoni';
 const Login = () => {
       const [email, setEmail] = useState('');
       const [password, setPassword] = useState('');
@@ -17,7 +17,7 @@ const Login = () => {
             <>
                   <section>
                         <div className="flex items-center w-full h-screen gap-4 justify-center">
-                              <Testimoni />
+                              {/* <Testimoni /> */}
                               <Card className="max-w-md w-full shadow-none border-0">
                                     <div className='text-center my-7'>
                                           <h1 className='text-[48px] font-medium my-2'>Login</h1>
