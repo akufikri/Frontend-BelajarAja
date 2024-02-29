@@ -1,8 +1,8 @@
-import { Card, Button, TextInput } from 'flowbite-react';
+import { Card, Button, TextInput, Spinner } from 'flowbite-react';
 import { HiSearch } from 'react-icons/hi';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks/authHooks';
 const Course = () => {
       const [courses, setCourses] = useState([]);
@@ -28,7 +28,7 @@ const Course = () => {
       const handleDetailCourse = (id) => {
 
             if (!user) {
-                  return
+                  return navigate('/login')
             }
             navigate(`/course/${id}`);
       };
@@ -59,12 +59,14 @@ const Course = () => {
                                     />
                               </div>
                               <div className='my-3'>
-                                    <h1 className='font-medium'>Total Course ({filteredCourses.length})</h1>
+                                    <h1 className='font-medium'>Course ({filteredCourses.length})</h1>
                               </div>
                               {loading ? (
-                                    <div className="h-screen bg-white">
+                                    <div className="h-96">
                                           <div className="flex justify-center items-center h-full">
-                                                <img className="h-16 w-16" src="https://icons8.com/preloaders/preloaders/1488/Iphone-spinner-2.gif" alt="" />
+                                                <div className="flex gap-4">
+                                                      <Spinner aria-label="Default status example" className='text-2xl' />Loading content
+                                                </div>
                                           </div>
                                     </div>
                               ) : (
@@ -74,7 +76,7 @@ const Course = () => {
                                           ) : (
                                                 filteredCourses.map((course) => (
                                                       <div key={course.id}>
-                                                            <Card className="max-w-sm">
+                                                            <Card className="max-w-sm border-none shadow-none">
                                                                   <img
                                                                         className='rounded-xl'
                                                                         width={500}
