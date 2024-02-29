@@ -12,6 +12,9 @@ import AccountSettings from './page/AccountSettings';
 import Nofound from './page/error/Nofound';
 import { useAuthContext } from './hooks/authHooks';
 import TechNow from './page/TechNow';
+import Sidebars from './components/Sidebar';
+import Courses from './page/mentors/Courses';
+import CreateCourse from './page/mentors/CreateCourse';
 
 export default function App() {
   const { user } = useAuthContext()
@@ -47,15 +50,6 @@ export default function App() {
 
           </>
         }></Route>
-        <Route path='/technow' element={
-          <>
-            <Nav />
-            <TechNow />
-
-          </>
-        }>
-
-        </Route>
         <Route path='/signup' element={
           <>
             <Nav />
@@ -67,9 +61,34 @@ export default function App() {
           <>
             <Nav />
             {!user ? <Login /> : <Navigate to="/" />}
-
           </>
         }></Route>
+        <Route path='/technow' element={
+          <>
+            {/* <Nav /> */}
+            <Sidebars />
+            <TechNow />
+          </>
+        }>
+        </Route>
+        <Route path='/mentor/course' element={
+          <>
+            <Sidebars />
+            <div className='p-4 sm:ml-64 h-screen'>
+              <Courses />
+            </div>
+          </>
+        }>
+        </Route>
+        <Route path='/mentor/course/create' element={
+          <>
+            <Sidebars />
+            <div className='p-4 sm:ml-64 h-screen'>
+              <CreateCourse />
+            </div>
+          </>
+        }>
+        </Route>
         <Route path='*' element={<Nofound />}></Route>
       </Routes>
     </div>
