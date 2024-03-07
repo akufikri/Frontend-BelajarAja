@@ -62,8 +62,8 @@ const Course = () => {
                                     <h1 className='font-medium'>Course ({filteredCourses.length})</h1>
                               </div>
                               {loading ? (
-                                    <div className="h-96">
-                                          <div className="flex justify-center items-center h-full">
+                                    <div className="h-96 ">
+                                          <div className="flex justify-center items-center h-full bg-gray-50">
                                                 <div className="flex gap-4">
                                                       <Spinner aria-label="Default status example" className='text-2xl' />Loading content
                                                 </div>

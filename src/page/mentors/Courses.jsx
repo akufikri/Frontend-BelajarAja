@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 const Courses = () => {
-      const [courses, setCourses] = useState([])
-      const navigate = useNavigate()
+      const [courses, setCourses] = useState([]);
+      const navigate = useNavigate();
+
       const fetchData = async () => {
             try {
                   const token = localStorage.getItem('token');
@@ -19,13 +20,32 @@ const Courses = () => {
                   console.error('Error fetching data:', error);
             }
       };
-      const handleClickCreate = async () => {
-            navigate('/mentor/course/create')
-      }
+
+      const handleDelete = async (id) => {
+            try {
+                  const token = localStorage.getItem('token');
+                  console.log('Token:', token);
+                  const url = `https://be-belajaraja.vercel.app/api/course/delete/${id}`;
+                  const response = await axios.delete(url, {
+                        headers: {
+                              Authorization: `Bearer ${token}`,
+                        },
+                  });
+                  console.log('Data deleted successfully:', response.data);
+                  // Refresh data setelah penghapusan
+                  fetchData();
+            } catch (error) {
+                  console.error('Error delete data:', error);
+            }
+      };
+
+      const handleClickCreate = () => {
+            navigate('/mentor/course/create');
+      };
+
       useEffect(() => {
             fetchData();
-      }, [courses]);
-
+      }, []);
       return (
             <>
                   <div className='mt-20'>
@@ -54,13 +74,17 @@ const Courses = () => {
                                                             <Table.Cell>{courses.description}</Table.Cell>
                                                             <Table.Cell>{courses.content}</Table.Cell>
                                                             <Table.Cell>{courses.price}</Table.Cell>
-                                                            <Table.Cell>
-                                                                  <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                                                            <Table.Cell className='flex'>
+                                                                  <button className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                                                                         Edit
-                                                                  </a>
-                                                                  <a href="#" className="font-medium ms-5 text-cyan-600 hover:underline dark:text-cyan-500">
+                                                                  </button>
+                                                                  <button
+                                                                        type='button'
+                                                                        onClick={() => handleDelete(courses.id)}
+                                                                        className="font-medium ms-5 text-cyan-600 hover:underline dark:text-cyan-500"
+                                                                  >
                                                                         Delete
-                                                                  </a>
+                                                                  </button>
                                                             </Table.Cell>
                                                       </Table.Row>
                                                 ))
