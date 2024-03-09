@@ -61,7 +61,7 @@ const Nav = () => {
                               {
                                     user && (
                                           <>
-                                                <Navbar.Link as={Link} to="/technow" active={location.pathname === '/technow'}>Teach Now</Navbar.Link>
+                                                <Navbar.Link as={Link} to="/s" active={location.pathname === '/s'}>Teach Now</Navbar.Link>
                                           </>
                                     )
                               }

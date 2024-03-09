@@ -15,6 +15,7 @@ import TechNow from './page/TechNow';
 import Sidebars from './components/Sidebar';
 import Courses from './page/mentors/Courses';
 import CreateCourse from './page/mentors/CreateCourse';
+import Stepper from './page/Stepper';
 
 export default function App() {
   const { user } = useAuthContext()
@@ -61,6 +62,12 @@ export default function App() {
           <>
             <Nav />
             {!user ? <Login /> : <Navigate to="/" />}
+          </>
+        }></Route>
+        <Route path='/s' element={
+          <>
+            <Nav />
+            <Stepper />
           </>
         }></Route>
         <Route path='/technow' element={
