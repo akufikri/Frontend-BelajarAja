@@ -20,7 +20,7 @@ import Stepper from './page/Stepper';
 export default function App() {
   const { user } = useAuthContext()
   return (
-    <div className='bg-gray-50 h-full'>
+    <div className='h-full'>
 
       <Routes>
         <Route path="/" element={
@@ -30,14 +30,14 @@ export default function App() {
 
           </>
         } ></Route>
-        <Route path='/course' element={
+        <Route path='/kelas' element={
           <>
             <Nav />
             <Course />
 
           </>
         }></Route>
-        <Route path='/course/:id' element={
+        <Route path='/kelas/:id' element={
           <>
             <Nav />
             <DetailCourse />

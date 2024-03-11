@@ -18,10 +18,10 @@ const Login = () => {
                   <section>
                         <div className="flex items-center w-full h-screen gap-4 justify-center">
                               {/* <Testimoni /> */}
-                              <Card className="max-w-md w-full shadow-none border-0">
+                              <Card className="max-w-md w-full shadow border">
                                     <div className='text-center my-7'>
                                           <h1 className='text-[48px] font-medium my-2'>Login</h1>
-                                          <span className='text-sm leading-3 font-normal'>Welcome back! Please log in to access your account.</span>
+                                          <span className='text-sm leading-3 font-normal'>Selamat datang kembali! Silakan masuk untuk mengakses akun Anda.</span>
                                     </div>
                                     <form className="flex flex-col gap-4" onSubmit={handleSubmit} >
                                           <div>
@@ -44,7 +44,7 @@ const Login = () => {
                                     </form>
 
                                     <div className='my-2 text-center'>
-                                          <span className='text-sm font-normal'>Dont have account ? <Link to='/signup' className='hover:underline me-1'>SignUp</Link><i className="fa-regular fa-arrow-up-right "></i></span>
+                                          <span className='text-sm font-normal'>Tidak punya akun ? <Link to='/signup' className='hover:underline me-1'>SignUp</Link><i className="fa-regular fa-arrow-up-right "></i></span>
                                     </div>
                               </Card>
                         </div>

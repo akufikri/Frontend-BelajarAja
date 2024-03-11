@@ -2,17 +2,15 @@ import { Card } from 'flowbite-react';
 const Benefits = () => {
     return (
         <>
-            <div className="flex justify-center mt-32">
-                <div className="max-w-5xl w-full sm:p-0 p-4">
+            <div className="flex justify-center mt-32 h-[100vh]">
+                <div className="max-w-6xl w-full sm:p-0 p-4">
                     <div className='my-7'>
-                        <h1 className='sm:text-[48px] text-2xl font-medium'>Benefits</h1>
+                        <h1 className='text-4xl font-medium text-gray-700'>Benefits</h1>
                         <div className='flex justify-between'>
                             <div className='w-9/12 pt-5'>
-                                <span className='sm:text-sm text-xs '>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis repellendus dolore ipsam. </span>
+                                <span className='sm:text-sm text-xs text-gray-600 font-medium'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis repellendus dolore ipsam. </span>
                             </div>
-                            <div className='sm:mt-0 mt-5'>
-                                <button className='bg-blue-50 px-7 rounded-md sm:text-sm text-xs py-2'>View all</button>
-                            </div>
+
                         </div>
                     </div>
                     <div className="grid sm:grid-cols-3 grid-cols-2 gap-4">
@@ -74,6 +72,8 @@ const Benefits = () => {
                     </div>
                 </div>
             </div>
+
+
         </>
     )
 }

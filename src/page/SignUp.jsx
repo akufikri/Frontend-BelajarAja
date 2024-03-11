@@ -23,10 +23,10 @@ const SignUp = () => {
                   <section>
                         <div className="flex justify-center items-center w-full h-screen gap-4">
                               {/* <Testimoni /> */}
-                              <Card className="max-w-md w-full shadow-none border-0">
+                              <Card className="max-w-md w-full shadow border">
                                     <div className='text-center my-7'>
                                           <h1 className='text-[48px] font-medium my-2'>SignUp</h1>
-                                          <span className='text-sm leading-3 font-normal'>Create an account to unlock exclusive features.</span>
+                                          <span className='text-sm leading-3 font-normal'>Buat akun untuk membuka fitur eksklusif.</span>
                                     </div>
                                     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                                           <div>
@@ -54,7 +54,7 @@ const SignUp = () => {
                                           {error && <div className='text-red-500'>{error}</div>}
                                     </form>
                                     <div className='my-2 text-center'>
-                                          <span className='text-sm font-normal'>Have account ? <Link to='/login' className='hover:underline me-1'>Login</Link><i className="fa-regular fa-arrow-up-right "></i></span>
+                                          <span className='text-sm font-normal'>Sudah punya akun ? <Link to='/login' className='hover:underline me-1'>Login</Link><i className="fa-regular fa-arrow-up-right "></i></span>
                                     </div>
                               </Card>
                         </div>

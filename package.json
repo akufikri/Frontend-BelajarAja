@@ -13,6 +13,9 @@
     "axios": "^1.6.7",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.7.2",
+    "framer-motion": "^11.0.8",
+    "intl": "^1.2.5",
+    "intl-locales-supported": "^1.8.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.0"
