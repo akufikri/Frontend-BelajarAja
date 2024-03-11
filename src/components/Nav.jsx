@@ -3,6 +3,8 @@ import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/authHooks';
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/logo-2.png'
+import { motion } from 'framer-motion'
+import { motion as framerMotion } from 'framer-motion'
 
 const Nav = () => {
       const { logout } = useLogout()
@@ -21,7 +23,7 @@ const Nav = () => {
       }
       return (
             <>
-                  <Navbar rounded className='fixed w-full z-30 sm:px-32'>
+                  <Navbar rounded className='fixed w-full z-30 sm:px-32 shadow-sm h-16'>
                         <Navbar.Brand href="/">
                               {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">belajarAja</span> */}
                               <img className='w-8 bg-gray-100 rounded-md' src={logo} alt="" />
@@ -46,22 +48,25 @@ const Nav = () => {
                                     !user && (
                                           <>
                                                 <a href='/signup' className='pt-2.5 text-sm font-normal'>Signup</a>
-                                                <Button onClick={handleLoginClick} color='blue' className='rounded-8 text-xs font-normal py-0'>Login</Button>
+
+                                                <framerMotion.div whileTap={{ scale: 0.9, rotate: 0, borderRadius: "100%" }}>
+                                                      <Button onClick={handleLoginClick} color='blue' className='rounded-full px-6 transition text-xs font-normal py-0'>Login</Button>
+                                                </framerMotion.div>
                                           </>
                                     )
                               }
                               <Navbar.Toggle />
                         </div>
-                        <Navbar.Collapse className='me-auto mx-5'>
+                        <Navbar.Collapse className='sm:me-auto sm:mx-5 bg-white w-full'>
                               <Navbar.Link as={Link} to='/' active={location.pathname === '/'}>
-                                    Home
+                                    Beranda
                               </Navbar.Link>
-                              <Navbar.Link as={Link} to='/course' active={location.pathname === '/course'} >Course</Navbar.Link>
-                              <Navbar.Link href="#">Category</Navbar.Link>
+                              <Navbar.Link as={Link} to='/kelas' active={location.pathname === '/course'} >Kelas</Navbar.Link>
+                              <Navbar.Link href="#">Kategori</Navbar.Link>
                               {
                                     user && (
                                           <>
-                                                <Navbar.Link as={Link} to="/s" active={location.pathname === '/s'}>Teach Now</Navbar.Link>
+                                                <Navbar.Link as={Link} to="/s" active={location.pathname === '/s'}>Mengajar</Navbar.Link>
                                           </>
                                     )
                               }

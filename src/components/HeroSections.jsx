@@ -1,35 +1,44 @@
 import React from 'react';
+import { Button } from 'flowbite-react'
+import bgHero from '../assets/bg-1.png'
 const HeroSection = () => {
       return (
-            <section className="h-screen sm:pt-36 pt-20"> {/* Section Container */}
-                  <div className="container mx-auto flex flex-col items-center px-4"> {/* Content Container */}
-                        <div className="max-w-5xl w-full items-center gap-8"> {/* Responsive Layout */}
-                              <div className="bg-white py-4 sm:w-[854px] justify-between shadow-md rounded-lg sm:h-[100px] mx-auto px-5 flex gap-3 sm:gap-5">
-                                    <div className='bg-blue-500 w-12 h-12 sm:w-[62px] sm:h-[62px] rounded-lg flex items-center justify-center'>
-                                          <i className="fa-solid fa-bolt sm:text-3xl text-[#FFC236]"></i>
+            <>
+                  <div className='h-[91vh] flex items-center justify-center'>
+                        <div className="max-w-6xl flex w-full justify-between ms:p-0 p-4">
+                              <div className='w-full mt-auto'>
+                                    <h1 className='sm:text-4xl text-3xl leading-snug'>Belajar Lebih Menyenangkan dengan BelajarAja.id</h1>
+                                    <div className='my-5'>
+                                          <span className='text-gray-500'>
+                                                Jadikan Setiap Pelajaran Petualangan yang Tak Terlupakan!
+                                          </span>
                                     </div>
-                                    <div>
-                                          <h1 className='sm:text-[48px] text-lg font-medium sm:mt-5'><span className='text-blue-500'>Unlock </span>Your Creative Potential</h1>
-                                    </div>
+                                    <Button className='uppercase shadow-sm hover:scale-105 transition rounded-full' color='blue'>Belajar sekarang</Button>
                               </div>
-                              <div className='text-center '>
-                                    <h1 className='text-[38px] mt-5'>with Online Courses in Various Fields.</h1>
-                                    <span className='text-[18px] font-normal'>
-                                          Learn from Industry Experts and Enhance Your Skills.
-                                    </span>
-                              </div>
+                              <div className='w-full sm:block hidden'>
+                                    <div className="h-64 bg-gray-500 w-full rounded-lg">
 
-                              <div className="flex justify-center mt-6 gap-3">
-                                    <div>
-                                          <button className='bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-md'>Explore Course</button>
-                                    </div>
-                                    <div>
-                                          <button className='bg-gray-50 hover:bg-gray-100 shadow text-black px-5 py-3 rounded-md'>View Pricing</button>
                                     </div>
                               </div>
                         </div>
                   </div>
-            </section>
+
+                  {/* Attachment  */}
+                  <div className='absolute top-0'>
+                        <div className="sm:h-56 h-32 sm:w-60 w-52 bg-blue-500 rounded-r-full">
+
+                        </div>
+                  </div>
+                  <div className='absolute sm:-bottom-20 bottom-1 right-0'>
+                        <div className="sm:h-56 h-20 w-56 bg-yellow-200 rounded-l-full"></div>
+                  </div>
+                  <div className='sm:absolute hidden bottom-20 left-56 sm:flex gap-4'>
+                        <div className="h-10 w-10 bg-blue-500 rounded-full animate-bounce delay-500"></div>
+                        <div className="h-8 w-8 bg-yellow-200 rounded-full mt-auto animate-bounce"></div>
+                        <div className="h-8 w-8 bg-yellow-300 rounded-full mt-auto animate-bounce"></div>
+                  </div>
+                  {/*  */}
+            </>
       );
 };
 
