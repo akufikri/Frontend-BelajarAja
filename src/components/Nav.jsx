@@ -3,7 +3,6 @@ import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/authHooks';
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../assets/logo-2.png'
-import { motion } from 'framer-motion'
 import { motion as framerMotion } from 'framer-motion'
 
 const Nav = () => {
@@ -64,12 +63,9 @@ const Nav = () => {
                               <Navbar.Link as={Link} to='/kelas' active={location.pathname === '/course'} >Kelas</Navbar.Link>
                               <Navbar.Link href="#">Kategori</Navbar.Link>
                               {
-                                    user && (
-                                          <>
-                                                <Navbar.Link as={Link} to="/s" active={location.pathname === '/s'}>Mengajar</Navbar.Link>
-                                          </>
-                                    )
+                                    !user ? <Navbar.Link as={Link} to="/mengajar/register" active={location.pathname === '/mengajar/register'}>Mengajar</Navbar.Link> : <Navbar.Link as={Link} to='/mentor/dashboard' active={location.pathname === '/mentor/dashboard`'}>Mengajar</Navbar.Link>
                               }
+
                         </Navbar.Collapse>
                   </Navbar ></>
       )
