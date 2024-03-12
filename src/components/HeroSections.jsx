@@ -1,7 +1,10 @@
-import React from 'react';
 import { Button } from 'flowbite-react'
-import bgHero from '../assets/bg-1.png'
+import { motion as framerMotion } from 'framer-motion'
+
 const HeroSection = () => {
+      const handleClick = () => {
+            window.location.href = '/kelas'
+      }
       return (
             <>
                   <div className='h-[91vh] flex items-center justify-center'>
@@ -13,11 +16,12 @@ const HeroSection = () => {
                                                 Jadikan Setiap Pelajaran Petualangan yang Tak Terlupakan!
                                           </span>
                                     </div>
-                                    <Button className='uppercase shadow-sm hover:scale-105 transition rounded-full' color='blue'>Belajar sekarang</Button>
+                                    <framerMotion.div whileTap={{ scale: 0.98, rotate: 0, borderRadius: "100%" }}>
+                                          <Button onClick={handleClick} className='uppercase shadow-sm transition rounded-full py-0' color='blue'>Belajar sekarang</Button>
+                                    </framerMotion.div>
                               </div>
                               <div className='w-full sm:block hidden'>
                                     <div className="h-64 bg-gray-500 w-full rounded-lg">
-
                                     </div>
                               </div>
                         </div>

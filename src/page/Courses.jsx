@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../hooks/authHooks';
 
+
 const Course = () => {
       const [courses, setCourses] = useState([]);
       const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const Course = () => {
       const fetchData = async () => {
             try {
                   const token = localStorage.getItem('token');
-                  const response = await axios.get('https://be-belajaraja.vercel.app/api/course/get', {
+                  const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}course/get`, {
                         headers: {
                               Authorization: `Bearer ${token}`,
                         },

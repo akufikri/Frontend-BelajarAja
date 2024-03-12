@@ -48,43 +48,37 @@ const Courses = () => {
       }, []);
       return (
             <>
-                  <div className='mt-20'>
+                  <div className='mt-10'>
                         <div className='mb-5'>
                               <Button onClick={handleClickCreate} color='blue'>Create</Button>
                         </div>
                         <div className="overflow-x-auto">
                               <Table striped>
-                                    <Table.Head >
-                                          <Table.HeadCell className='bg-gray-800 text-white'>Title</Table.HeadCell>
-                                          <Table.HeadCell className='bg-gray-800 text-white'>Description</Table.HeadCell>
-                                          <Table.HeadCell className='bg-gray-800 text-white'>Content</Table.HeadCell>
-                                          <Table.HeadCell className='bg-gray-800 text-white'>Price</Table.HeadCell>
-                                          <Table.HeadCell className='bg-gray-800 text-white'>
+                                    <Table.Head>
+                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>No</Table.HeadCell>
+                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>Title</Table.HeadCell>
+                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>Description</Table.HeadCell>
+                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>Cover</Table.HeadCell>
+                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>Price</Table.HeadCell>
+                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>
                                                 <span className="sr-only">Edit</span>
-                                                <span className="sr-only">Delete</span>
                                           </Table.HeadCell>
                                     </Table.Head>
                                     <Table.Body className="divide-y">
                                           {
                                                 courses.map((courses) => (
-                                                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={courses.id}>
+                                                      <Table.Row key={courses.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                                            <Table.Cell>1</Table.Cell>
                                                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                                                   {courses.title}
                                                             </Table.Cell>
-                                                            <Table.Cell>{courses.description}</Table.Cell>
-                                                            <Table.Cell>{courses.content}</Table.Cell>
-                                                            <Table.Cell>{courses.price}</Table.Cell>
-                                                            <Table.Cell className='flex'>
-                                                                  <button className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                                                            <Table.Cell>Sliver</Table.Cell>
+                                                            <Table.Cell>Laptop</Table.Cell>
+                                                            <Table.Cell>$2999</Table.Cell>
+                                                            <Table.Cell>
+                                                                  <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                                                                         Edit
-                                                                  </button>
-                                                                  <button
-                                                                        type='button'
-                                                                        onClick={() => handleDelete(courses.id)}
-                                                                        className="font-medium ms-5 text-cyan-600 hover:underline dark:text-cyan-500"
-                                                                  >
-                                                                        Delete
-                                                                  </button>
+                                                                  </a>
                                                             </Table.Cell>
                                                       </Table.Row>
                                                 ))

@@ -1,4 +1,4 @@
-import { Button, Card, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Card, Label, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import { useLogin } from '../hooks/useLogin'
 import { Link } from 'react-router-dom';
@@ -16,11 +16,11 @@ const Login = () => {
       return (
             <>
                   <section>
-                        <div className="flex items-center w-full h-screen gap-4 justify-center">
+                        <div className="flex items-center w-full h-screen gap-4 justify-center sm:p-0 p-4">
                               {/* <Testimoni /> */}
                               <Card className="max-w-md w-full shadow border">
                                     <div className='text-center my-7'>
-                                          <h1 className='text-[48px] font-medium my-2'>Login</h1>
+                                          <h1 className='sm:text-[48px] text-2xl font-medium my-2'>Login</h1>
                                           <span className='text-sm leading-3 font-normal'>Selamat datang kembali! Silakan masuk untuk mengakses akun Anda.</span>
                                     </div>
                                     <form className="flex flex-col gap-4" onSubmit={handleSubmit} >

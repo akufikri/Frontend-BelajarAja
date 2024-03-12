@@ -1,13 +1,12 @@
-// useSignUp.js
 import { useState } from "react";
 import { useAuthContext } from "./authHooks";
 
-export const useSignUp = () => {
+export const useSignUpMentor = () => {
       const [error, setError] = useState(null);
       const [isLoading, setIsLoading] = useState(false);
       const { dispatch } = useAuthContext();
 
-      const signup = async (username, email, password) => {
+      const signup = async (username, email, password,) => {
             setIsLoading(true);
             setError(null);
 
@@ -15,7 +14,12 @@ export const useSignUp = () => {
                   const response = await fetch('https://be-belajaraja.vercel.app/api/user/register', {
                         method: "POST",
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ username, email, password })
+                        body: JSON.stringify({
+                              username,
+                              email,
+                              password,
+                              role: 'mentor'
+                        })
                   });
 
                   if (!response.ok) {
@@ -44,4 +48,4 @@ export const useSignUp = () => {
 
 
       return { signup, isLoading, error };
-};
+}
