@@ -43,9 +43,9 @@ const PreviewCourse = () => {
                                           <Card key={course.id}
                                                 className="max-w-sm rounded-xl border-0"
                                                 renderImage={() => <img
-                                                      className='rounded-t-xl '
-                                                      src={'https://be-belajaraja.vercel.app/uploads/' + course.cover}
-                                                      alt="image 1"
+                                                      className='rounded-t-xl h-auto '
+                                                      src={course.cover} // Ganti URL placeholder sesuai kebutuhan
+                                                      alt={course.title}
                                                 />}
                                           >
                                                 <h5 className="text-2xl font-medium tracking-tight text-gray-900 dark:text-white">

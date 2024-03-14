@@ -14,6 +14,8 @@ import Courses from './page/mentors/Courses';
 import CreateCourse from './page/mentors/CreateCourse';
 import RegisterMentor from './page/RegisterMentor';
 import Dashboard from './page/mentors/Dashboard';
+import Breadcrumbs from './components/Breadcrumbs';
+import NavMentor from './components/NavMentor';
 
 
 export default function App() {
@@ -33,7 +35,6 @@ export default function App() {
           <>
             <Nav />
             <Course />
-
           </>
         }></Route>
         <Route path='/kelas/:id' element={
@@ -75,7 +76,9 @@ export default function App() {
         <Route path='/mentor/dashboard' element={
           <>
             {user && <Sidebars />}
-            <div className={`p-4 ${user ? 'sm:ml-72' : ''} h-screen bg-gray-100`}>
+            {user && <NavMentor />}
+            <div className={`p-4 ${user ? 'sm:ml-72 pt-20' : ''} h-screen bg-gray-100`}>
+              <Breadcrumbs />
               {!user ? <Login /> : <Dashboard />}
             </div>
           </>
@@ -85,7 +88,9 @@ export default function App() {
         <Route path='/mentor/course' element={
           <>
             {user && <Sidebars />}
-            <div className={`p-4 ${user ? 'sm:ml-72' : ''} h-screen bg-gray-100`}>
+            {user && <NavMentor />}
+            <div className={`p-4 ${user ? 'sm:ml-72 pt-20' : ''} h-screen bg-gray-100`}>
+              <Breadcrumbs />
               {!user ? <Login /> : <Courses />}
             </div>
           </>
@@ -94,7 +99,9 @@ export default function App() {
         <Route path='/mentor/course/create' element={
           <>
             {user && <Sidebars />}
-            <div className={`p-4 ${user ? 'sm:ml-72' : ''} h-screen bg-gray-100`}>
+            {user && <NavMentor />}
+            <div className={`p-4 ${user ? 'sm:ml-72 pt-20' : ''} h-screen bg-gray-100`}>
+              <Breadcrumbs />
               {!user ? <Login /> : <CreateCourse />}
             </div>
           </>

@@ -82,7 +82,6 @@ const Course = () => {
                                                             <Card
                                                                   className="max-w-sm rounded-2xl border-0 mb-2"
                                                                   renderImage={() => {
-                                                                        
 
                                                                         return (
                                                                               <img

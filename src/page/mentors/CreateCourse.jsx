@@ -1,12 +1,12 @@
 
-import { Button, Label, TextInput, Textarea } from 'flowbite-react';
+import { Button, Label, TextInput, FileInput, Textarea } from 'flowbite-react';
 import { useState } from 'react';
 import axios from 'axios';
 import { useAuthContext } from '../../hooks/authHooks';
 const CreateCourse = () => {
       const [title, setTitle] = useState('');
       const [price, setPrice] = useState('');
-      const [content, setContent] = useState('');
+      const [cover, setCover] = useState('');
       const [description, setDescription] = useState('');
 
       const { user } = useAuthContext();
@@ -20,9 +20,9 @@ const CreateCourse = () => {
                         {
                               title,
                               description,
-                              content,
-                              price: parseFloat(price), // Ensure it's a number
-                              mentor: user._id, // Assuming user.id is the mentor's ID
+                              cover,
+                              price: parseFloat(price),
+                              mentor: user._id,
                         },
                         {
                               headers: {
@@ -43,7 +43,7 @@ const CreateCourse = () => {
       };
       return (
             <>
-                  <div className='max-w-lg'>
+                  <div className='max-w-xl'>
                         <form onSubmit={handleSubmit}>
                               <div className="mb-3">
                                     <div className="mb-2 block">
@@ -59,9 +59,9 @@ const CreateCourse = () => {
                               </div>
                               <div className="mb-3">
                                     <div className="mb-2 block">
-                                          <Label htmlFor="content" value="Content" />
+                                          <Label htmlFor="cover" value="Cover" />
                                     </div>
-                                    <TextInput id="content" type="text" placeholder="Enter new content" onChange={(e) => setContent(e.target.value)} value={content} />
+                                    <FileInput id="cover" sizing="sm" onChange={(e) => setCover(e.target.value)} value={cover} />
                               </div>
                               <div className="mb-3">
                                     <div className="mb-2 block">
@@ -70,8 +70,8 @@ const CreateCourse = () => {
                                     <Textarea id="description" placeholder="Enter new description" rows={5} className='resize-none' onChange={(e) => setDescription(e.target.value)} value={description} />
                               </div>
                               <div className="flex gap-3">
-                                    <Button type="submit" color='blue'>Create</Button>
-                                    <Button>Cancle</Button>
+                                    <Button type="submit" color='dark'>Create</Button>
+                                    <Button color='light'>Cancle</Button>
                               </div>
                         </form>
                   </div>
