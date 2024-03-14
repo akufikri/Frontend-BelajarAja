@@ -86,8 +86,8 @@ const Course = () => {
 
                                                                         return (
                                                                               <img
-                                                                                    className={`rounded-t-xl ${course.cover ? 'h-auto' : 'h-56'}`}
-                                                                                    src={course.cover ? imageUrl : 'https://fakeimg.pl/600x400'} // Ganti URL placeholder sesuai kebutuhan
+                                                                                    className='rounded-t-xl h-auto '
+                                                                                    src={course.cover} // Ganti URL placeholder sesuai kebutuhan
                                                                                     alt={course.title}
                                                                               />
                                                                         );
