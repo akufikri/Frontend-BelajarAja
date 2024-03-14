@@ -82,13 +82,12 @@ const Course = () => {
                                                             <Card
                                                                   className="max-w-sm rounded-2xl border-0 mb-2"
                                                                   renderImage={() => {
-                                                                        const imageUrl = `https://be-belajaraja.vercel.app/uploads/${course.cover}`;
-                                                                        const hasImage = Boolean(course.cover);
+
 
                                                                         return (
                                                                               <img
-                                                                                    className={`rounded-t-xl ${hasImage ? 'h-auto' : 'h-56'}`}
-                                                                                    src={hasImage ? imageUrl : 'https://fakeimg.pl/600x400'} // Ganti URL placeholder sesuai kebutuhan
+                                                                                    className='rounded-t-xl h-auto '
+                                                                                    src={course.cover} // Ganti URL placeholder sesuai kebutuhan
                                                                                     alt={course.title}
                                                                               />
                                                                         );
