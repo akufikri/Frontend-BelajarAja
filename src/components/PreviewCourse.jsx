@@ -41,17 +41,25 @@ const PreviewCourse = () => {
                               {
                                     course.map((course) => (
                                           <Card key={course.id}
-                                                className="max-w-sm rounded-xl border-0"
-                                                renderImage={() => <img
-                                                      className='rounded-t-xl h-auto '
-                                                      src={course.cover} // Ganti URL placeholder sesuai kebutuhan
-                                                      alt={course.title}
-                                                />}
+                                                className="max-w-sm rounded-2xl border-0 mb-2"
+                                                renderImage={() => {
+
+                                                      return (
+                                                            <img
+                                                                  className='rounded-t-xl h-56'
+                                                                  src={course.cover} // Ganti URL placeholder sesuai kebutuhan
+                                                                  alt={course.title}
+                                                            />
+                                                      );
+                                                }}
                                           >
-                                                <h5 className="text-2xl font-medium tracking-tight text-gray-900 dark:text-white">
+                                                <h5 className="text-xl font-medium tracking-tight text-gray-900 dark:text-white">
                                                       {course.title}
                                                 </h5>
-                                                <p className="font-normal text-gray-700 dark:text-gray-400">
+                                                <div>
+                                                      <span className='text-blue-500 text-sm'>Total pelajaran (0)</span>
+                                                </div>
+                                                <p className="font-normal text-sm text-gray-700 dark:text-gray-400">
                                                       {course.description.length > 70 ? `${course.description.slice(0, 70)}...` : course.description}
                                                 </p>
                                                 <div className="grid">
@@ -60,7 +68,7 @@ const PreviewCourse = () => {
                                                 <div className='me-auto'>
                                                       <Avatar img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded>
                                                             <div className="space-y-1 font-normal dark:text-white">
-                                                                  <div>By fulan</div>
+                                                                  <div>By {course.mentor.username}</div>
                                                             </div>
                                                       </Avatar>
                                                 </div>
