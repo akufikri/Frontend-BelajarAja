@@ -23,6 +23,8 @@ const DetailCourse = () => {
       const [cover, setCover] = useState();
       const [price, setPrice] = useState(0);
       const [mentor, setMentor] = useState('');
+      const [totalVideos, setTotalVideos] = useState(0); // State to store total number of videos
+
       useEffect(() => {
             const fetchData = async () => {
                   try {
@@ -36,6 +38,14 @@ const DetailCourse = () => {
                         setCover(response.data.cover);
                         setPrice(response.data.price);
                         setMentor(response.data.mentor.username);
+
+                        // Fetch total number of videos for the course
+                        const lessonResponse = await axios.get(`https://be-belajaraja.vercel.app/api/lesson/get?course_id=${id}`, {
+                              headers: {
+                                    'Authorization': `Bearer ${user.token}`
+                              }
+                        });
+                        setTotalVideos(lessonResponse.data.length);
                   } catch (error) {
                         console.error(error);
                   }
@@ -48,14 +58,14 @@ const DetailCourse = () => {
 
       return (
             <>
-                  <div className='h-[90vh] pt-28 '>
-                        <div className="flex w-full justify-center gap-8">
-                              <div className='w-full max-w-3xl'>
+                  <div className='h-[90vh] pt-28 absolute w-full z-20'>
+                        <div className="sm:flex w-full justify-center gap-8">
+                              <div className='w-full max-w-3xl sm:p-0 p-3'>
                                     <div className="max-w-xl mb-5">
                                           <h1 className='text-6xl font-semibold mb-7 text-gray-800'>{title}</h1>
                                           <span className='text-gray-500 font-normal'>{description.length > 100 ? `${description.slice(0, 100)}...` : description}</span>
                                     </div>
-                                    <div className="my-8">
+                                    <div className="my-8  sm:p-0 p-3">
                                           <div className="flex">
                                                 <img className='h-10 rounded-full w-10' src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="" />
                                                 <div className="ms-4 mt-1.5 font-normal dark:text-white">
@@ -63,17 +73,17 @@ const DetailCourse = () => {
                                                 </div>
                                           </div>
                                     </div>
-                                    <div>
+                                    <div className=' sm:p-0 p-3'>
                                           <div className={`h-auto bg-gray-500 rounded-2xl shadow-md ${cover ? '' : 'h-56'}`}>
                                                 {cover ? (
-                                                      <img className='rounded-2xl' src={`https://be-belajaraja.vercel.app/uploads/${cover}`} alt="" />
+                                                      <img className='rounded-2xl w-full' src={cover} alt="" />
                                                 ) : (
                                                       <img src='https://fakeimg.pl/1000x400' className='rounded-2xl' />
                                                 )}
                                           </div>
 
                                     </div>
-                                    <div className="my-12">
+                                    <div className="my-12  sm:p-0 p-3">
                                           <h1 className='text-2xl font-semibold mb-2'>Tentang Kelas</h1>
                                           <span className='text-gray-500 font-normal'>{description}</span>
                                     </div>
@@ -96,7 +106,7 @@ const DetailCourse = () => {
                                                 <ul className='space-y-3 text-end'>
                                                       <li>Menengah</li>
                                                       <li>1 Jam 20 Menit</li>
-                                                      <li>10</li>
+                                                      <li>{totalVideos}</li> {/* Display total number of videos */}
                                                 </ul>
                                           </div>
                                     </Card>
@@ -104,7 +114,7 @@ const DetailCourse = () => {
                         </div>
                   </div>
                   {/* attachment */}
-                  <div className="absolute top-0">
+                  <div className="absolute top-0 z-10">
                         <div className="h-56 w-56 bg-yellow-200 rounded-br-full"></div>
 
                   </div>

@@ -3,59 +3,37 @@ const Sidebars = () => {
 
       return (
             <>
-                  <div className="h-screen bg-gray-100 border-r w-72 fixed z-50">
-                        <div className="px-6 pt-5 flex gap-4">
-                              {/* <div className="bg-white h-10 mt-1 w-10 rounded-lg border">
-                                    <img className="h-9 w-9" src={logo} alt="" />
-                              </div>
-                              <div className="">
-                                    <span className="text-lg font-medium">BelajarAja</span>
-                                    <span className="block text-sm">WIB : 14.00</span>
-                              </div> */}
-                        </div>
-                        {/* menu */}
+                  <aside id="logo-sidebar" className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+                        <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+                              <ul className="space-y-2 font-medium">
+                                    <li>
+                                          <Link to='/mentor/dashboard' className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
 
-                        <div className="px-5 w-full mt-12">
-                              <ul className="space-y-4 w-full">
-                                    <li>
-                                          <Link to='/mentor/dashboard' className="group block w-full text-xl text-gray-800 hover:text-black transition">
-                                                <div className="flex items-center space-x-4 hover:bg-white hover:shadow-md p-2 rounded-md transition">
-                                                      <i className="fa-regular fa-gauge"></i>
-                                                      <span className="text-base">Dashboard</span>
-                                                </div>
+
+                                                <i className="fa-regular fa-gauge text-2xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
+                                                <span className="ms-3 font-medium text-gray-600">Dashboard</span>
                                           </Link>
                                     </li>
                                     <li>
-                                          <Link to='/statistic' className="group block w-full text-xl text-gray-800 hover:text-black transition">
-                                                <div className="flex items-center space-x-4 hover:bg-white hover:shadow-md p-2 rounded-md transition">
-                                                      <i className="fa-regular fa-chart-simple"></i>
-                                                      <span className="text-base">Statistic</span>
-                                                </div>
+                                          <Link to='/mentor/statistic' className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+
+                                                <i className="fa-regular fa-chart-simple text-2xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
+                                                <span className="flex-1 ms-3 whitespace-nowrap">Statistic</span>
+
                                           </Link>
                                     </li>
                                     <li>
-                                          <Link to='/mentor/course' className="group block w-full text-xl text-gray-800 hover:text-black transition">
-                                                <div className="flex items-center space-x-4 hover:bg-white hover:shadow-md p-2 rounded-md transition">
-                                                      <i className="fa-regular fa-video"></i>
-                                                      <span className="text-base">Course</span>
-                                                </div>
+                                          <Link to='/mentor/course' className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+
+                                                <i className="fa-regular fa-video text-2xl text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
+                                                <span className="flex-1 ms-3 whitespace-nowrap">Course</span>
+
                                           </Link>
                                     </li>
 
-                                    <div className="pt-5 pb-5">
-                                          <span className="uppercase text-gray-500">Account</span>
-                                    </div>
-                                    <li>
-                                          <Link to='/settings' className="group block w-full text-xl text-gray-800 hover:text-black transition">
-                                                <div className="flex items-center space-x-4 hover:bg-white hover:shadow-md p-2 rounded-md transition">
-                                                      <i className="fa-regular fa-gear"></i>
-                                                      <span className="text-base">Settings</span>
-                                                </div>
-                                          </Link>
-                                    </li>
                               </ul>
                         </div>
-                  </div>
+                  </aside>
             </>
       );
 }

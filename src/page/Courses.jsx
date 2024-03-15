@@ -78,14 +78,13 @@ const Course = () => {
                                           ) : (
                                                 filteredCourses.map((course) => (
                                                       <div key={course.id}>
-
                                                             <Card
                                                                   className="max-w-sm rounded-2xl border-0 mb-2"
                                                                   renderImage={() => {
 
                                                                         return (
                                                                               <img
-                                                                                    className='rounded-t-xl h-auto '
+                                                                                    className='rounded-t-xl h-56'
                                                                                     src={course.cover} // Ganti URL placeholder sesuai kebutuhan
                                                                                     alt={course.title}
                                                                               />
