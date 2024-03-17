@@ -19,6 +19,7 @@ import NavMentor from './components/NavMentor';
 import EditCourse from './page/mentors/EditCourse';
 import Lessons from './page/mentors/Lessons';
 import CreateLesson from './page/mentors/CreateLesson';
+import MyClass from './page/MyClass';
 
 
 export default function App() {
@@ -45,6 +46,12 @@ export default function App() {
             <Nav />
             <DetailCourse />
 
+          </>
+        }></Route>
+        <Route path='/kelas-saya/:id' element={
+          <>
+            <Nav />
+            <MyClass />
           </>
         }></Route>
         <Route path='/user/settings' element={

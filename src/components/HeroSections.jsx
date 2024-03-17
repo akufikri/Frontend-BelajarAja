@@ -1,5 +1,6 @@
 import { Button } from 'flowbite-react'
 import { motion as framerMotion } from 'framer-motion'
+import video from '../assets/op-vid.mp4'
 
 const HeroSection = () => {
       const handleClick = () => {
@@ -20,8 +21,11 @@ const HeroSection = () => {
                                           <Button onClick={handleClick} className='uppercase shadow-sm transition rounded-full py-0' color='blue'>Belajar sekarang</Button>
                                     </framerMotion.div>
                               </div>
-                              <div className='w-full sm:block hidden'>
-                                    <div className="h-64 bg-gray-500 w-full rounded-lg">
+                              <div className='w-full sm:block hidden '>
+                                    <div className="h-72 bg-gray-500 w-full rounded-lg">
+                                          <video className="w-full h-full object-cover rounded-lg" autoPlay loop muted>
+                                                <source src={video} type="video/mp4" />
+                                          </video>
                                     </div>
                               </div>
                         </div>

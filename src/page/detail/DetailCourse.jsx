@@ -39,8 +39,7 @@ const DetailCourse = () => {
                         setPrice(response.data.price);
                         setMentor(response.data.mentor.username);
 
-                        // Fetch total number of videos for the course
-                        const lessonResponse = await axios.get(`https://be-belajaraja.vercel.app/api/lesson/get?course_id=${id}`, {
+                        const lessonResponse = await axios.get(`https://be-belajaraja.vercel.app/api/lesson/getbycourse/${id}`, {
                               headers: {
                                     'Authorization': `Bearer ${user.token}`
                               }
@@ -55,6 +54,10 @@ const DetailCourse = () => {
                   fetchData();
             }
       }, [id, user]);
+
+      const handleClickMyClass = () => {
+            navigate(`/kelas-saya/${id}`)
+      }
 
       return (
             <>
@@ -96,7 +99,7 @@ const DetailCourse = () => {
                                           <p className="font-normal text-gray-700 dark:text-gray-400">
                                                 {description.length > 100 ? `${description.slice(0, 100)}...` : description}
                                           </p>
-                                          <Button className='rounded-2xl shadow' color='blue'><i className="fa-regular fa-play">{" "}</i><span className="ms-2">Learn</span></Button>
+                                          <Button onClick={handleClickMyClass} className='rounded-2xl shadow' color='blue'><i className="fa-regular fa-play">{" "}</i><span className="ms-2">Learn</span></Button>
                                           <div className="mt-5 flex justify-between mb-7">
                                                 <ul className='space-y-3'>
                                                       <li className='font-medium'> <i className="fa-regular fa-chart-line me-2"></i> <span>Level</span> </li>
