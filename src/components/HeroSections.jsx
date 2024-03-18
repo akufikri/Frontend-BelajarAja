@@ -1,51 +1,51 @@
-import { Button } from 'flowbite-react'
-import { motion as framerMotion } from 'framer-motion'
-import video from '../assets/op-vid.mp4'
+import { useState } from 'react';
+import { Button } from 'flowbite-react';
+import { motion as framerMotion } from 'framer-motion';
+import mybg from '../assets/bg-1.png';
 
 const HeroSection = () => {
+      const [isLoading, setIsLoading] = useState(true);
+
+      const handleImageLoad = () => {
+            setIsLoading(false);
+      };
+
       const handleClick = () => {
-            window.location.href = '/kelas'
-      }
+            window.location.href = '/kelas';
+      };
+
       return (
             <>
-                  <div className='h-[91vh] flex items-center justify-center'>
-                        <div className="max-w-6xl flex w-full justify-between ms:p-0 p-4">
-                              <div className='w-full mt-auto'>
-                                    <h1 className='sm:text-4xl text-3xl leading-snug'>Belajar Lebih Menyenangkan dengan BelajarAja.id</h1>
+                  <div className='h-[77vh] flex items-center justify-center'>
+                        <div className="max-w-7xl flex w-full justify-between ms:p-0 p-4">
+                              <div className='w-full sm:mt-10'>
+                                    <h1 className='sm:text-6xl text-3xl sm:leading-[4.2rem] font-semibold text-gray-700'>Belajar Lebih Menyenangkan di <span className='text-[#FFC236]'>B</span><span className='text-[#0074BC]'>elajar</span><span className='text-[#FFC236]'>A</span><span className='text-[#0074BC]'>ja</span></h1>
                                     <div className='my-5'>
-                                          <span className='text-gray-500'>
-                                                Jadikan Setiap Pelajaran Petualangan yang Tak Terlupakan!
+                                          <span className='text-gray-500 '>
+                                                Ayo, mari kita eksplorasi dan tingkatkan beragam keterampilan bersama kami. Temukan ratusan video pembelajaran di sini. dan <span className='font-semibold'>Geratis.</span>
                                           </span>
                                     </div>
                                     <framerMotion.div whileTap={{ scale: 0.98, rotate: 0, borderRadius: "100%" }}>
-                                          <Button onClick={handleClick} className='uppercase shadow-sm transition rounded-full py-0' color='blue'>Belajar sekarang</Button>
+                                          <Button onClick={handleClick} className='uppercase shadow-sm transition rounded-lg py-2' color='blue'><i className="fa-regular fa-play me-2"></i>  Belajar sekarang</Button>
                                     </framerMotion.div>
                               </div>
-                              <div className='w-full sm:block hidden '>
-                                    <div className="h-72 bg-gray-500 w-full rounded-lg">
-                                          <video className="w-full h-full object-cover rounded-lg" autoPlay loop muted>
-                                                <source src={video} type="video/mp4" />
-                                          </video>
+                              <div className='w-full sm:block hidden'>
+                                    <div className="h-96 w-full rounded-lg relative overflow-hidden">
+                                          <img
+                                                src={mybg}
+                                                alt=""
+                                                className={`w-full h-full object-cover ${isLoading ? 'filter blur-md' : ''}`}
+                                                onLoad={handleImageLoad}
+                                          />
+                                          {isLoading && (
+                                                <div className="absolute inset-0 bg-white opacity-50 flex items-center justify-center">
+                                                      {/* Tambahkan ikon loader di sini */}
+                                                </div>
+                                          )}
                                     </div>
                               </div>
                         </div>
                   </div>
-
-                  {/* Attachment  */}
-                  <div className='absolute top-0'>
-                        <div className="sm:h-56 h-32 sm:w-60 w-52 bg-blue-500 rounded-r-full">
-
-                        </div>
-                  </div>
-                  <div className='absolute sm:-bottom-20 bottom-1 right-0'>
-                        <div className="sm:h-56 h-20 w-56 bg-yellow-200 rounded-l-full"></div>
-                  </div>
-                  <div className='sm:absolute hidden bottom-20 left-56 sm:flex gap-4'>
-                        <div className="h-10 w-10 bg-blue-500 rounded-full animate-bounce delay-500"></div>
-                        <div className="h-8 w-8 bg-yellow-200 rounded-full mt-auto animate-bounce"></div>
-                        <div className="h-8 w-8 bg-yellow-300 rounded-full mt-auto animate-bounce"></div>
-                  </div>
-                  {/*  */}
             </>
       );
 };

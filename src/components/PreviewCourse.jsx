@@ -32,12 +32,12 @@ const PreviewCourse = () => {
       return (
             <>
                   {/* kursus gratis */}
-                  <div className='h-[50vh] max-w-6xl mx-auto mt-20 sm:p-0 p-4'>
-                        <div className='my-5 mt-96 sm:mt-0'>
-                              <h1 className='font-medium text-3xl text-gray-700'>Kelas Gratis</h1>
-                              <span className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, exercitationem!</span>
+                  <div className='max-w-7xl mx-auto sm:p-0 p-4'>
+                        <div className='my-9 mt-96 sm:mt-0'>
+                              <h1 className='font-semibold text-2xl text-gray-700 text-center'>Mungkin anda tertarik</h1>
+
                         </div>
-                        <div className="grid sm:grid-cols-3 grid-cols-1 gap-3">
+                        <div className="grid sm:grid-cols-4 grid-cols-1 gap-3">
                               {
                                     course.map((course) => (
                                           <Card key={course.id}
@@ -79,7 +79,7 @@ const PreviewCourse = () => {
 
                         </div>
                         <div className="my-5">
-                              <Button onClick={handleButton} className='mx-auto rounded-full' color='blue'>Lebih banyak</Button>
+                              <Button onClick={handleButton} className='mx-auto rounded-lg' color='light'>Lebih banyak</Button>
                         </div>
                   </div>
             </>

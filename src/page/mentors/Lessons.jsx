@@ -1,78 +1,133 @@
-import { Table, Button } from 'flowbite-react';
+import { Button, Accordion } from 'flowbite-react'; // Sesuaikan impor ini dengan package Accordion yang Anda gunakan
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/authHooks';
+import ReactPlayer from 'react-player/youtube';
+import { useNavigate } from 'react-router-dom';
 
-const Lessons = () => {
-      const [lesson, setLesson] = useState([])
-      const navigate = useNavigate();
+const Lesson = () => {
+      const { id } = useParams();
+      const [cover, setCover] = useState('');
       const { user } = useAuthContext();
+      const [lesson, setLesson] = useState([]);
+      const [lessonToDelete, setLessonToDelete] = useState(null);
+      const navigate = useNavigate();
 
-      const fetchLesson = async () => {
+      const fetchDataCourse = async () => {
             try {
-                  const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}lesson/get`, {
+                  const response = await axios.get(`https://be-belajaraja.vercel.app/api/course/get/${id}`, {
                         headers: {
-                              Authorization: `Bearer ${user.token}`,
-                        },
-                  })
-                  setLesson(response.data)
+                              'Authorization': `Bearer ${user.token}`
+                        }
+                  });
+                  setCover(response.data.cover);
             } catch (error) {
-                  console.error('Error fetching data:', error);
+                  console.error(error);
             }
-      }
+      };
 
-      const handleCreate = () => {
-            navigate('/mentor/lesson/create')
-      }
+      const fetchDataLesson = async () => {
+            try {
+                  const response = await axios.get(`https://be-belajaraja.vercel.app/api/lesson/getbycourse/${id}`, {
+                        headers: {
+                              'Authorization': `Bearer ${user.token}`,
+                        },
+                  });
+                  setLesson(response.data);
+            } catch (error) {
+                  console.error(error);
+            }
+      };
 
       useEffect(() => {
-            fetchLesson()
-      }, [])
+            if (user) {
+                  fetchDataCourse();
+                  fetchDataLesson();
+            }
+      }, [id, user]);
+
+      const handleDeleteLesson = async (lessonId) => {
+            try {
+                  // Pastikan lessonId tidak undefined sebelum melakukan penghapusan
+                  if (!lessonId) {
+                        console.error('ID pelajaran tidak valid.');
+                        return;
+                  }
+
+                  const response = await axios.delete(`https://be-belajaraja.vercel.app/api/lesson/delete/${lessonId}`, {
+                        headers: {
+                              'Authorization': `Bearer ${user.token}`,
+                        },
+                  });
+
+                  if (response.status === 200) {
+                        fetchDataLesson();
+                  } else {
+                        console.error('Error deleting lesson:', response.data.error);
+                  }
+            } catch (error) {
+                  console.error('Error deleting lesson:', error.message);
+            } finally {
+                  setLessonToDelete(null);
+            }
+      };
+
+      const handleRedirectCreate = () => {
+            navigate(`/mentor/lesson/create/${id}`);
+      };
+
       return (
             <>
-                  <div className="mt-10">
-                        <div className='mb-5 flex gap-4'>
-                              <Button onClick={handleCreate} color='dark' size="sm"><i className="fa-regular fa-circle-plus me-3"></i>  <span>Create</span></Button>
-                              <Button color='light' size="sm" ><i className="fa-regular fa-clipboard me-3"></i> <span>Quiz</span></Button>
+                  <div className="block max-w-5xl mx-auto">
+                        <div className="bg-gray-400 h-56 rounded-lg  ">
+                              <img src={cover} alt="" className='object-cover h-full w-full rounded-lg' />
                         </div>
-                        <div className="overflow-x-auto">
-                              <Table hoverable>
-                                    <Table.Head>
-                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>No</Table.HeadCell>
-                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>Title</Table.HeadCell>
-                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>Video</Table.HeadCell>
-                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>Description</Table.HeadCell>
-                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>Sequence</Table.HeadCell>
-                                          <Table.HeadCell className='bg-gray-900 text-white font-normal '>
-                                                <span className="sr-only">Edit</span>
-                                          </Table.HeadCell>
-                                    </Table.Head>
-                                    <Table.Body className="divide-y">
-                                          {
-                                                lesson.map((lesson, index) => (
-                                                      <Table.Row key={lesson.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                                            <Table.Cell>{index + 1}</Table.Cell>
-                                                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                                                  {lesson.title}
-                                                            </Table.Cell>
-                                                            <Table.Cell>{lesson.video_url}</Table.Cell>
-                                                            <Table.Cell> {lesson.description.length > 70 ? `${lesson.description.slice(0, 70)}...` : lesson.description}</Table.Cell>
-                                                            <Table.Cell>{lesson.sequence}</Table.Cell>
-                                                            <Table.Cell>
-                                                                  <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                                                        Edit
-                                                                  </a>
-                                                            </Table.Cell>
-                                                      </Table.Row>
-                                                ))
-                                          }
+                        <div className='my-7'>
+                              <Button color='light' onClick={handleRedirectCreate}>CREATE</Button>
+                        </div>
 
-                                    </Table.Body>
-                              </Table>
+                        <div>
+                              {/* Tambahkan kondisi untuk menampilkan pesan jika tidak ada pelajaran */}
+                              {lesson.length === 0 && <h1>Tidak ada video yang tersedia!</h1>}
+                        </div>
+
+                        <div>
+                              <Accordion collapseAll>
+                                    {lesson.map((lessonItem) => (
+                                          <Accordion.Panel key={lessonItem.id}>
+                                                <Accordion.Title><i className="fa-light fa-video me-3"></i> {lessonItem.title} </Accordion.Title>
+                                                <Accordion.Content>
+                                                      <div className="flex justify-between">
+                                                            <h1>Preview</h1>
+                                                            <div className="flex gap-2">
+                                                                  <Button color='light'>
+                                                                        <i className='fa-regular fa-pencil me-2'></i>
+                                                                        EDIT
+                                                                  </Button>
+                                                                  <button onClick={() => setLessonToDelete(lessonItem.id)}>
+                                                                        <i className='fa-regular fa-trash me-2'></i>
+                                                                        DELETE
+                                                                  </button>
+                                                            </div>
+                                                      </div>
+                                                      <div className="my-7">
+                                                            <div className="bg-gray-500 h-auto">
+                                                                  <ReactPlayer url={lessonItem.video_url} width={988} />
+                                                            </div>
+                                                            <div className='my-5'>
+                                                                  <h1 className='font-semibold uppercase'>{lessonItem.title}</h1>
+                                                                  <p className='text-sm'>{lessonItem.description}</p>
+                                                            </div>
+                                                      </div>
+                                                </Accordion.Content>
+                                          </Accordion.Panel>
+                                    ))}
+                              </Accordion>
                         </div>
                   </div>
             </>
-      )
-}
-export default Lessons
+      );
+};
+
+export default Lesson;

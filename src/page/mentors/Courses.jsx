@@ -67,8 +67,8 @@ const Courses = () => {
       const handleEditCourse = (id) => {
             navigate(`/mentor/course/edit/${id}`);
       };
-      const handleRedirectLessons = () => {
-            navigate('/mentor/lesson')
+      const handleRedirectLesson = (id) => {
+            navigate(`/mentor/lesson/${id}`)
       }
 
       useEffect(() => {
@@ -91,7 +91,6 @@ const Courses = () => {
                   <div className='mt-10'>
                         <div className='mb-5 flex gap-4'>
                               <Button onClick={handleClickCreate} color='dark' size="sm"><i className="fa-regular fa-circle-plus me-3"></i>  <span>Create</span></Button>
-                              <Button onClick={handleRedirectLessons} color='light' size="sm" ><i className="fa-regular fa-video me-3"></i> <span>Leason</span></Button>
                         </div>
                         <div className="overflow-x-auto">
                               {currentCourses.length > 0 ? (
@@ -120,6 +119,9 @@ const Courses = () => {
                                                             <Table.Cell>  {formatPrice(course.price)}</Table.Cell>
                                                             <Table.Cell>
                                                                   <div className="flex gap-4">
+                                                                        <button onClick={() => { handleRedirectLesson(course._id) }}>
+                                                                              <i className="fa-regular fa-video me-3"></i>
+                                                                        </button>
                                                                         <button type='button' onClick={() => { setCourseToDelete(course._id); setOpenModal(true); }}>
                                                                               <i className="fa-regular fa-trash"></i>
                                                                         </button>
