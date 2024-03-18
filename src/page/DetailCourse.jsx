@@ -2,7 +2,7 @@ import { Card, Button } from 'flowbite-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useAuthContext } from '../../hooks/authHooks';
+import { useAuthContext } from '../hooks/authHooks';
 
 const formatPrice = (price) => {
       const formattedPrice = new Intl.NumberFormat('id-ID', {
@@ -61,7 +61,7 @@ const DetailCourse = () => {
 
       return (
             <>
-                  <div className='h-[90vh] pt-28 absolute w-full z-20'>
+                  <div className='sm:h-[90vh] pt-28 absolute w-full z-20'>
                         <div className="sm:flex w-full justify-center gap-8">
                               <div className='w-full max-w-3xl sm:p-0 p-3'>
                                     <div className="max-w-xl mb-5">

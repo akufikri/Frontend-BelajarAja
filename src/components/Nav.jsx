@@ -22,7 +22,7 @@ const Nav = () => {
       }
       return (
             <>
-                  <Navbar rounded className='fixed w-full z-30 sm:px-32 shadow-sm h-16'>
+                  <Navbar rounded className='fixed w-full z-30 sm:px-32 shadow-lg h-16'>
                         <Navbar.Brand href="/">
                               {/* <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">belajarAja</span> */}
                               <img className='w-8 bg-gray-100 rounded-md' src={logo} alt="" />
@@ -60,7 +60,7 @@ const Nav = () => {
                               <Navbar.Link as={Link} to='/' active={location.pathname === '/'}>
                                     Beranda
                               </Navbar.Link>
-                              <Navbar.Link as={Link} to='/kelas' active={location.pathname === '/course'} >Kelas</Navbar.Link>
+                              <Navbar.Link as={Link} to='/kelas' active={location.pathname === '/kelas'} >Kelas</Navbar.Link>
                               {
                                     !user ? <Navbar.Link as={Link} to="/mengajar/register" active={location.pathname === '/mengajar/register'}>Mengajar</Navbar.Link> : <Navbar.Link as={Link} to='/mentor/dashboard' active={location.pathname === '/mentor/dashboard`'}>Mengajar</Navbar.Link>
                               }

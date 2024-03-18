@@ -24,7 +24,7 @@ function RegisterMentor() {
                               {/* <Testimoni /> */}
                               <Card className="max-w-md w-full shadow border">
                                     <div className='text-center my-7'>
-                                          <h1 className='sm:text-[48px] text-2xl font-medium my-2'>Daftar Mentor</h1>
+                                          <h1 className='sm:text-[48px] text-2xl font-medium mb-6'>Daftar Mentor</h1>
                                           <span className='text-sm leading-3 font-normal'>Buat akun untuk membuka fitur eksklusif.</span>
                                     </div>
                                     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
