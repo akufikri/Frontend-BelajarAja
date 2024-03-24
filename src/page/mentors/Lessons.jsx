@@ -1,18 +1,35 @@
-import { Button, Accordion } from 'flowbite-react'; // Sesuaikan impor ini dengan package Accordion yang Anda gunakan
+import { Button, Accordion } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/authHooks';
 import ReactPlayer from 'react-player/youtube';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+
+// Fungsi untuk mengonversi durasi video menjadi format yang lebih mudah dibaca
+const formatDuration = (durationInSeconds) => {
+      const hours = Math.floor(durationInSeconds / 3600);
+      const minutes = Math.floor((durationInSeconds % 3600) / 60);
+      const seconds = durationInSeconds % 60;
+
+      if (hours > 0) {
+            return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      } else if (minutes > 0) {
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      } else {
+            return `${seconds} detik`;
+      }
+};
 
 const Lesson = () => {
       const { id } = useParams();
       const [cover, setCover] = useState('');
       const { user } = useAuthContext();
       const [lesson, setLesson] = useState([]);
-      const [lessonToDelete, setLessonToDelete] = useState(null);
       const navigate = useNavigate();
+      const [playerWidth, setPlayerWidth] = useState(988);
+      const [videoDurations, setVideoDurations] = useState({}); // State untuk menyimpan durasi video
 
       const fetchDataCourse = async () => {
             try {
@@ -27,6 +44,16 @@ const Lesson = () => {
             }
       };
 
+      const handleResize = () => {
+            const screenWidth = window.innerWidth;
+            const newWidth = Math.min(988, Math.floor(screenWidth * 0.9));
+            setPlayerWidth(newWidth);
+      };
+      const redirectEditLesson = (lessonId) => {
+            navigate(`/mentor/lesson/edit/${lessonId}`);
+      };
+
+
       const fetchDataLesson = async () => {
             try {
                   const response = await axios.get(`https://be-belajaraja.vercel.app/api/lesson/getbycourse/${id}`, {
@@ -39,42 +66,67 @@ const Lesson = () => {
                   console.error(error);
             }
       };
-
       useEffect(() => {
             if (user) {
                   fetchDataCourse();
                   fetchDataLesson();
             }
+            handleResize();
+            window.addEventListener('resize', handleResize);
+            return () => {
+                  window.removeEventListener('resize', handleResize);
+            };
       }, [id, user]);
 
-      const handleDeleteLesson = async (lessonId) => {
+      const handleDelete = async (lessonId) => {
             try {
-                  // Pastikan lessonId tidak undefined sebelum melakukan penghapusan
-                  if (!lessonId) {
-                        console.error('ID pelajaran tidak valid.');
-                        return;
-                  }
-
-                  const response = await axios.delete(`https://be-belajaraja.vercel.app/api/lesson/delete/${lessonId}`, {
+                  await axios.delete(`https://be-belajaraja.vercel.app/api/lesson/delete/${lessonId}`, {
                         headers: {
                               'Authorization': `Bearer ${user.token}`,
                         },
                   });
+                  fetchDataCourse();
+                  fetchDataLesson();
 
-                  if (response.status === 200) {
-                        fetchDataLesson();
-                  } else {
-                        console.error('Error deleting lesson:', response.data.error);
-                  }
+                  setTimeout(() => {
+                        window.location.href = `/mentor/lesson/${id}`
+                  }, 6000);
+                  toast.success('Lesson berhasil dihapus!', {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                  });
+
+
             } catch (error) {
-                  console.error('Error deleting lesson:', error.message);
-            } finally {
-                  setLessonToDelete(null);
+                  console.error(error);
+                  toast.error('Terjadi kesalahan saat mengirimkan permintaan.', {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                  });
             }
       };
 
+
+
       const handleRedirectCreate = () => {
             navigate(`/mentor/lesson/create/${id}`);
+      };
+
+      const handleDuration = (duration, index) => {
+            const formattedDuration = formatDuration(duration);
+            setVideoDurations(prevState => ({ ...prevState, [index]: formattedDuration })); // Mengupdate state dengan durasi yang diformat
       };
 
       return (
@@ -88,32 +140,41 @@ const Lesson = () => {
                         </div>
 
                         <div>
-                              {/* Tambahkan kondisi untuk menampilkan pesan jika tidak ada pelajaran */}
                               {lesson.length === 0 && <h1>Tidak ada video yang tersedia!</h1>}
                         </div>
 
                         <div>
                               <Accordion collapseAll>
-                                    {lesson.map((lessonItem) => (
+                                    {lesson.map((lessonItem, index) => (
                                           <Accordion.Panel key={lessonItem.id}>
-                                                <Accordion.Title><i className="fa-light fa-video me-3"></i> {lessonItem.title} </Accordion.Title>
+                                                <Accordion.Title><i className="fa-light fa-video me-3"></i> {lessonItem.title} | {lessonItem.sequence} </Accordion.Title>
                                                 <Accordion.Content>
                                                       <div className="flex justify-between">
-                                                            <h1>Preview</h1>
+                                                            <div className="block">
+                                                                  <h1>Preview</h1>
+                                                                  <span>Durasi: {videoDurations[index]}</span> {/* Menampilkan durasi video */}
+                                                            </div>
                                                             <div className="flex gap-2">
-                                                                  <Button color='light'>
+                                                                  <Button onClick={() => redirectEditLesson(lessonItem._id)} color='light'>
                                                                         <i className='fa-regular fa-pencil me-2'></i>
                                                                         EDIT
                                                                   </Button>
-                                                                  <button onClick={() => setLessonToDelete(lessonItem.id)}>
+
+                                                                  <Button color='dark' onClick={() => handleDelete(lessonItem._id)}>
                                                                         <i className='fa-regular fa-trash me-2'></i>
                                                                         DELETE
-                                                                  </button>
+                                                                  </Button>
                                                             </div>
                                                       </div>
                                                       <div className="my-7">
-                                                            <div className="bg-gray-500 h-auto">
-                                                                  <ReactPlayer url={lessonItem.video_url} width={988} />
+                                                            <div className="bg-gray-500 h-auto overflow-auto">
+                                                                  <ReactPlayer
+                                                                        url={lessonItem.video_url}
+                                                                        width={playerWidth}
+                                                                        alt='Thumbnail'
+                                                                        style={{ borderRadius: '0.25rem' }}
+                                                                        onDuration={(duration) => handleDuration(duration, index)} // Menangani perubahan durasi video
+                                                                  />
                                                             </div>
                                                             <div className='my-5'>
                                                                   <h1 className='font-semibold uppercase'>{lessonItem.title}</h1>
@@ -126,6 +187,18 @@ const Lesson = () => {
                               </Accordion>
                         </div>
                   </div>
+                  <ToastContainer
+                        position="bottom-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        transition:Bounce />
             </>
       );
 };

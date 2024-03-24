@@ -1,12 +1,14 @@
-import { Button, Label, TextInput, FileInput, Textarea, Toast } from 'flowbite-react';
+import { Button, Label, TextInput, FileInput, Textarea } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuthContext } from '../../hooks/authHooks';
+import { useNavigate } from 'react-router-dom'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 const EditCourse = () => {
       const { id } = useParams();
-      const navigate = useNavigate();
       const [title, setTitle] = useState('');
       const [description, setDescription] = useState('');
       const { user } = useAuthContext();
@@ -14,7 +16,7 @@ const EditCourse = () => {
       const [previewCover, setPreviewCover] = useState(null);
       const [price, setPrice] = useState(0);
       const [mentor, setMentor] = useState('');
-      const [showSuccessToast, setShowSuccessToast] = useState(false);
+      const navigate = useNavigate()
 
       useEffect(() => {
             const fetchData = async () => {
@@ -45,13 +47,9 @@ const EditCourse = () => {
             setPreviewCover(URL.createObjectURL(file));
       };
 
-      const handleBackPage = () => {
-            navigate('/mentor/course');
-      }
-
       const handleUpdateCourse = async () => {
             try {
-                  const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL}course/update/${id}`, {
+                  await axios.put(`${import.meta.env.VITE_API_BASE_URL}course/update/${id}`, {
                         title,
                         description,
                         cover,
@@ -64,15 +62,19 @@ const EditCourse = () => {
                         }
                   });
 
-                  if (response.status === 201) {
-                        setShowSuccessToast(true); // Show success toast on successful update
-                        setTimeout(() => {
-                              navigate('/mentor/course'); // Redirect to /mentor/course after showing success toast
-                        }, 2000); // 2 seconds delay before redirecting
-                  } else {
-                        console.error('Error editing course:', response.data.error);
-                  }
-
+                  setTimeout(() => {
+                        window.location.href = "/mentor/course";
+                  }, 3000);
+                  toast.success('Course Berhasil Di Update!', {
+                        position: "bottom-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                  });
             } catch (error) {
                   console.error('Error editing course:', error.message);
             }
@@ -82,6 +84,10 @@ const EditCourse = () => {
             e.preventDefault();
             handleUpdateCourse();
       };
+
+      const handleBackPage = () => {
+            navigate('/mentor/course')
+      }
 
       return (
             <div className="sm:flex gap-7">
@@ -120,17 +126,22 @@ const EditCourse = () => {
                   <div className="max-w-2xl w-full">
                         {previewCover && <img className='w-full rounded-2xl mt-6 shadow' src={previewCover} alt="Preview Cover" />}
                   </div>
-                  {showSuccessToast && (
-                        <Toast className="fixed bottom-10 right-10" duration={2000} onClose={() => setShowSuccessToast(false)}>
-                              <div className="flex items-center space-x-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <p className="text-sm">Course successfully updated!</p>
-                              </div>
-                        </Toast>
-                  )}
+                  <ToastContainer
+                        position="bottom-right"
+                        autoClose={2000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        transition:Bounce />
+
+
             </div>
+
       );
 };
 

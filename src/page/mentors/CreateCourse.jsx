@@ -3,6 +3,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useAuthContext } from '../../hooks/authHooks';
 import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 const CreateCourse = () => {
       const [title, setTitle] = useState('');
@@ -35,7 +37,19 @@ const CreateCourse = () => {
                   );
 
                   if (response.status === 201) {
-                        navigate('/mentor/course');
+                        setTimeout(() => {
+                              navigate('/mentor/course');
+                        }, 3000);
+                        toast.success('Course Berhasil Di Buat!', {
+                              position: "bottom-right",
+                              autoClose: 2000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+                        });
                   } else {
                         console.error('Error creating course:', response.data.error);
                   }
@@ -92,6 +106,18 @@ const CreateCourse = () => {
                               {previewCover && <img className='w-full rounded-2xl mt-6 shadow' src={previewCover} alt="Preview Cover" />}
                         </div>
                   </div>
+                  <ToastContainer
+                        position="bottom-right"
+                        autoClose={2000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        transition:Bounce />
             </>
       );
 };

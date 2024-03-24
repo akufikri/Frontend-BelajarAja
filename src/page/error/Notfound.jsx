@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Nofound() {
+export default function Notfound() {
       return (
             <>
                   <div className='fixed w-full'>
