@@ -7,7 +7,7 @@ import Course from './page/Courses';
 import DetailCourse from './page/DetailCourse';
 import './App.css'
 import AccountSettings from './page/AccountSettings';
-import Nofound from './page/error/Nofound';
+import Notfound from './page/error/Notfound';
 import { useAuthContext } from './hooks/authHooks';
 import Sidebars from './components/Sidebar';
 import Courses from './page/mentors/Courses';
@@ -19,8 +19,9 @@ import NavMentor from './components/NavMentor';
 import EditCourse from './page/mentors/EditCourse';
 import Lessons from './page/mentors/Lessons';
 import CreateLesson from './page/mentors/CreateLesson';
-import MyClass from './page/MyClass';
+import DetailCourses from './page/DetailCourses';
 import Footers from './components/Footer';
+import EditLesson from './page/mentors/EditLesson';
 
 
 export default function App() {
@@ -50,13 +51,14 @@ export default function App() {
 
           </>
         }></Route>
-        <Route path='/kelas-saya/:id' element={
+        <Route path='/kelas/:id/kelas' element={
           <>
             <Nav />
-            <MyClass />
+            <DetailCourses />
             <Footers />
           </>
-        }></Route>
+        }>
+        </Route>
         <Route path='/user/settings' element={
           <>
             <Nav />
@@ -151,10 +153,20 @@ export default function App() {
             </div>
           </>
         }></Route>
+        <Route path='/mentor/lesson/edit/:id' element={
+          <>
+            {user && <Sidebars />}
+            {user && <NavMentor />}
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-20' : ''} `}>
+              <Breadcrumbs />
+              {!user ? <Login /> : <EditLesson />}
+            </div>
+          </>
+        }></Route>
 
 
         {/* Mentor Route */}
-        <Route path='*' element={<Nofound />}></Route>
+        <Route path='*' element={<Notfound />}></Route>
       </Routes>
 
     </div>

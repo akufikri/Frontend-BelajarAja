@@ -1,10 +1,11 @@
-import { Table, Button, Modal, Toast, Pagination } from 'flowbite-react';
-import { HiOutlineExclamationCircle, HiCheck } from 'react-icons/hi';
+import { Table, Button, Modal, Pagination } from 'flowbite-react';
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../hooks/authHooks';
-import { motion } from "framer-motion"; // Import motion from Framer Motion
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 const formatPrice = (price) => {
       const formattedPrice = new Intl.NumberFormat('id-ID', {
@@ -21,7 +22,6 @@ const Courses = () => {
       const [courses, setCourses] = useState([]);
       const [courseToDelete, setCourseToDelete] = useState(null);
       const [openModal, setOpenModal] = useState(false);
-      const [showToast, setShowToast] = useState(false); // State to control toast visibility
       const navigate = useNavigate();
       const { user } = useAuthContext();
       const [currentPage, setCurrentPage] = useState(1);
@@ -51,8 +51,19 @@ const Courses = () => {
                         },
                   });
                   if (response.status === 200) {
-                        setShowToast(true); // Show toast on successful deletion
-                        navigate('/mentor/course')
+                        setTimeout(() => {
+                              window.location.href = '/mentor/course'
+                        }, 3000);
+                        toast.success('Course berhasil dihapus!', {
+                              position: "bottom-right",
+                              autoClose: 2000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: "light",
+                        });
                   } else {
                         console.error('Error deleting course:', response.data.error);
                   }
@@ -163,39 +174,35 @@ const Courses = () => {
                                     <div className="text-center">
                                           <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
                                           <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                Are you sure you want to delete this product?
+                                                Yakin anda ingin menghapus ?
                                           </h3>
                                           <div className="flex justify-center gap-4">
                                                 <Button color="failure" onClick={handleDelete}>
-                                                      {"Yes, I'm sure"}
+                                                      {"Yes, saya ingin"}
                                                 </Button>
                                                 <Button color="gray" onClick={() => setOpenModal(false)}>
-                                                      No, cancel
+                                                      No, tidak
                                                 </Button>
                                           </div>
                                     </div>
                               </Modal.Body>
                         </Modal>
 
-                        {/* toaster */}
-                        {showToast && (
-                              <motion.div
-                                    initial={{ opacity: 0, y: 50 }} // Initial animation state
-                                    animate={{ opacity: 1, y: 0 }} // Animation when toast appears
-                                    transition={{ duration: 0.5 }} // Transition duration
-                                    className='absolute bottom-5 right-6'
-                              >
-                                    <Toast>
-                                          <div className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-lime-100 text-lime-500 dark:bg-lime-800 dark:text-lime-200">
-                                                <HiCheck className="h-5 w-5" />
-                                          </div>
-                                          <div className="ml-3 text-sm font-normal">Successfully</div>
-                                          <Toast.Toggle />
-                                    </Toast>
-                              </motion.div>
-                        )}
+
 
                   </div>
+                  <ToastContainer
+                        position="bottom-right"
+                        autoClose={2000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        transition:Bounce />
             </>
       )
 };

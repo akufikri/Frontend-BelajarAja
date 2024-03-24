@@ -1,4 +1,4 @@
-import { Card, Button } from 'flowbite-react';
+import { Card, Button, Avatar } from 'flowbite-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -14,6 +14,12 @@ const formatPrice = (price) => {
       return formattedPrice;
 };
 
+// const formatDuration = (totalMinutes) => {
+//       const hours = Math.floor(totalMinutes / 60);
+//       const minutes = totalMinutes % 60;
+//       return `${hours} Jam ${minutes} Menit`;
+// };
+
 const DetailCourse = () => {
       const { id } = useParams();
       const navigate = useNavigate();
@@ -23,7 +29,9 @@ const DetailCourse = () => {
       const [cover, setCover] = useState();
       const [price, setPrice] = useState(0);
       const [mentor, setMentor] = useState('');
-      const [totalVideos, setTotalVideos] = useState(0); // State to store total number of videos
+      const [mentorEmail, setMentorEmail] = useState('');
+      const [totalVideos, setTotalVideos] = useState(0);
+      // const [totalDuration, setTotalDuration] = useState(0); 
 
       useEffect(() => {
             const fetchData = async () => {
@@ -38,12 +46,20 @@ const DetailCourse = () => {
                         setCover(response.data.cover);
                         setPrice(response.data.price);
                         setMentor(response.data.mentor.username);
+                        setMentorEmail(response.data.mentor.email);
 
                         const lessonResponse = await axios.get(`https://be-belajaraja.vercel.app/api/lesson/getbycourse/${id}`, {
                               headers: {
                                     'Authorization': `Bearer ${user.token}`
                               }
                         });
+
+                        // Hitung total durasi dari semua video lesson
+                        // const totalDuration = lessonResponse.data.reduce((total, lesson) => {
+                        //       return total + lesson.duration;
+                        // }, 0);
+                        // setTotalDuration(totalDuration);
+
                         setTotalVideos(lessonResponse.data.length);
                   } catch (error) {
                         console.error(error);
@@ -55,9 +71,43 @@ const DetailCourse = () => {
             }
       }, [id, user]);
 
-      const handleClickMyClass = () => {
-            navigate(`/kelas-saya/${id}`)
+      const handleClickMyCourses = () => {
+            navigate(`/kelas/${id}/kelas`);
       }
+
+      // async function getYouTubeVideoDuration(videoId) {
+      //       try {
+      //             // Kirim permintaan ke API YouTube Data
+      //             const response = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+      //                   params: {
+      //                         id: videoId,
+      //                         part: 'contentDetails',
+      //                         key: 'AIzaSyBkndGcHmVRayFN034wq78m1BVF-zmJz20'
+      //                   }
+      //             });
+
+      //             // Mengekstrak durasi video dari respons JSON
+      //             const duration = response.data.items[0].contentDetails.duration;
+
+      //             // Kembalikan durasi video dalam format yang sesuai
+      //             return duration;
+      //       } catch (error) {
+      //             console.error('Error fetching YouTube video duration:', error);
+      //             return null;
+      //       }
+      // }
+
+      // // Contoh penggunaan fungsi
+      // const videoId = 'VIDEO_ID_YOUTUBE'; // Ganti dengan ID video YouTube yang sesuai
+
+      // getYouTubeVideoDuration(videoId)
+      //       .then(duration => {
+      //             console.log('Durasi video:', duration);
+      //             // Tampilkan durasi video di aplikasi Anda
+      //       })
+      //       .catch(error => {
+      //             console.error('Error:', error);
+      //       });
 
       return (
             <>
@@ -66,13 +116,15 @@ const DetailCourse = () => {
                               <div className='w-full max-w-3xl sm:p-0 p-3'>
                                     <div className="max-w-xl mb-5">
                                           <h1 className='text-6xl font-semibold mb-7 text-gray-800'>{title}</h1>
-                                          <span className='text-gray-500 font-normal'>{description.length > 100 ? `${description.slice(0, 100)}...` : description}</span>
+
                                     </div>
                                     <div className="my-8  sm:p-0 p-3">
-                                          <div className="flex">
-                                                <img className='h-10 rounded-full w-10' src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="" />
-                                                <div className="ms-4 mt-1.5 font-normal dark:text-white">
-                                                      <div>By {mentor}</div>
+
+                                          <div className="flex gap-5">
+                                                <Avatar rounded />
+                                                <div className='mt-auto'>
+                                                      <span className='font-semibold text-gray-400'>By {mentor}</span>
+                                                      <span className='text-sm text-gray-600 block'>{mentorEmail}</span>
                                                 </div>
                                           </div>
                                     </div>
@@ -99,16 +151,16 @@ const DetailCourse = () => {
                                           <p className="font-normal text-gray-700 dark:text-gray-400">
                                                 {description.length > 100 ? `${description.slice(0, 100)}...` : description}
                                           </p>
-                                          <Button onClick={handleClickMyClass} className='rounded-2xl shadow' color='blue'><i className="fa-regular fa-play">{" "}</i><span className="ms-2">Learn</span></Button>
+                                          <Button onClick={handleClickMyCourses} className='shadow' color='light'><i className="fa-regular fa-play">{" "}</i><span className="ms-2">Learn</span></Button>
                                           <div className="mt-5 flex justify-between mb-7">
                                                 <ul className='space-y-3'>
                                                       <li className='font-medium'> <i className="fa-regular fa-chart-line me-2"></i> <span>Level</span> </li>
-                                                      <li className='font-medium'> <i className="fa-regular fa-timer me-2"></i> <span>Durasi</span> </li>
+                                                      {/* <li className='font-medium'> <i className="fa-regular fa-timer me-2"></i> <span>Durasi</span> </li> */}
                                                       <li className='font-medium'> <i className="fa-regular fa-video me-2"></i> <span>Total Video</span> </li>
                                                 </ul>
                                                 <ul className='space-y-3 text-end'>
                                                       <li>Menengah</li>
-                                                      <li>1 Jam 20 Menit</li>
+                                                      {/* <li>{formatDuration(totalDuration)}</li> */}
                                                       <li>{totalVideos}</li> {/* Display total number of videos */}
                                                 </ul>
                                           </div>
