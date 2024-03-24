@@ -2,6 +2,8 @@
 
 BelajarAja adalah platform digital yang dibuat untuk mewadahi bagi Anda yang ingin belajar namun juga mendapatkan sertifikasi. Di BelajarAja, Anda dapat menemukan berbagai bidang pembelajaran, tidak hanya terbatas pada Kewirausahaan, tetapi juga mencakup IT, Videografi, Editing, dan banyak lagi.
 
+https://github.com/akufikri/Frontend-BelajarAja/assets/108182945/0f037d35-8b9c-4a0f-a071-c1b7848de5f3
+
 ## Tujuan
 
 Tujuan dari platform BelajarAja adalah untuk memberikan akses mudah dan fleksibel bagi semua orang yang ingin mengembangkan keterampilan mereka tanpa batasan waktu dan tempat. Kami percaya bahwa belajar harus menjadi pengalaman yang menyenangkan dan bermanfaat bagi setiap individu.
