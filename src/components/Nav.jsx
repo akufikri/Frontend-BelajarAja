@@ -56,6 +56,7 @@ const Nav = () => {
                                     Beranda
                               </Navbar.Link>
                               <Navbar.Link as={Link} to='/kelas' active={location.pathname === '/kelas'} >Kelas</Navbar.Link>
+                              <Navbar.Link as={Link} to='/tentang-kami' active={location.pathname === '/tentang-kami'} >Tentang Kami</Navbar.Link>
                               {
                                     !user ? <Navbar.Link as={Link} to="/mengajar/register" active={location.pathname === '/mengajar/register'}>Mengajar</Navbar.Link> : <Navbar.Link as={Link} to='/mentor/dashboard' active={location.pathname === '/mentor/dashboard`'}>Mengajar</Navbar.Link>
                               }

@@ -24,6 +24,7 @@ import EditLesson from './page/mentors/EditLesson';
 import Statistic from './page/mentors/Statistic';
 import Quiz from './page/mentors/Quiz';
 import CreateQuiz from './page/mentors/CreateQuiz';
+import About from './page/About';
 
 
 export default function App() {
@@ -45,11 +46,17 @@ export default function App() {
             <Footers />
           </>
         }></Route>
+        <Route path='/tentang-kami' element={
+          <>
+            <Nav />
+            <About />
+            <Footers />
+          </>
+        }></Route>
         <Route path='/kelas/:id' element={
           <>
             <Nav />
             <DetailCourse />
-
           </>
         }></Route>
         <Route path='/kelas/:id/kelas' element={
