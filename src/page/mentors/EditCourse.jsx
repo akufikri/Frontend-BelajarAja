@@ -1,4 +1,4 @@
-import { Button, Label, TextInput, FileInput, Textarea } from 'flowbite-react';
+import { Button, Label, TextInput, FileInput, Textarea, Card } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -65,7 +65,7 @@ const EditCourse = () => {
                   setTimeout(() => {
                         window.location.href = "/mentor/course";
                   }, 3000);
-                  toast.success('Course Berhasil Di Update!', {
+                  toast.success('Successfully updated course!, please wait...', {
                         position: "bottom-right",
                         autoClose: 2000,
                         hideProgressBar: false,
@@ -90,57 +90,61 @@ const EditCourse = () => {
       }
 
       return (
-            <div className="sm:flex gap-7">
-                  <div className='sm:max-w-xl w-full'>
-                        <form onSubmit={handleSubmit}>
-                              <div className="mb-3">
-                                    <div className="mb-2 block">
-                                          <Label htmlFor="title" value="Title" />
+            <Card className='border-l-8 border-l-blue-500 border-t-0 border-b-0 border-r-0'>
+                  <div className="sm:flex gap-7">
+                        <div className='sm:max-w-xl w-full'>
+                              <form onSubmit={handleSubmit}>
+                                    <div className="mb-3">
+                                          <div className="mb-2 block">
+                                                <Label htmlFor="title" value="Title" />
+                                          </div>
+                                          <TextInput id="title" type="text" placeholder="Enter new title" value={title} onChange={(e) => setTitle(e.target.value)} />
                                     </div>
-                                    <TextInput id="title" type="text" placeholder="Enter new title" value={title} onChange={(e) => setTitle(e.target.value)} />
-                              </div>
-                              <div className="mb-3">
-                                    <div className="mb-2 block">
-                                          <Label htmlFor="price" value="Price" />
+                                    <div className="mb-3">
+                                          <div className="mb-2 block">
+                                                <Label htmlFor="price" value="Price" />
+                                          </div>
+                                          <TextInput id="price" type="number" placeholder="Enter new price" value={price} onChange={(e) => setPrice(e.target.value)} />
                                     </div>
-                                    <TextInput id="price" type="number" placeholder="Enter new price" value={price} onChange={(e) => setPrice(e.target.value)} />
-                              </div>
-                              <div className="mb-3">
-                                    <div className="mb-2 block">
-                                          <Label htmlFor="cover" value="Cover" />
+                                    <div className="mb-3">
+                                          <div className="mb-2 block">
+                                                <Label htmlFor="cover" value="Cover" />
+                                          </div>
+                                          <FileInput id="cover" sizing="sm" onChange={handleCoverChange} />
                                     </div>
-                                    <FileInput id="cover" sizing="sm" onChange={handleCoverChange} />
-                              </div>
-                              <div className="mb-3">
-                                    <div className="mb-2 block">
-                                          <Label htmlFor="description" value="Description" />
+                                    <div className="mb-3">
+                                          <div className="mb-2 block">
+                                                <Label htmlFor="description" value="Description" />
+                                          </div>
+                                          <Textarea id="description" placeholder="Enter new description" rows={5} className='resize-none' value={description} onChange={(e) => setDescription(e.target.value)} />
                                     </div>
-                                    <Textarea id="description" placeholder="Enter new description" rows={5} className='resize-none' value={description} onChange={(e) => setDescription(e.target.value)} />
+                                    <div className="flex gap-3">
+                                          <Button type="submit" color='blue'>Update</Button>
+                                          <Button color='light' onClick={handleBackPage}>Cancel</Button>
+                                    </div>
+                              </form>
+                        </div>
+                        <div className="max-w-2xl w-full">
+                              <div className={`bg-gray-200 rounded-2xl ${previewCover ? 'h-auto' : 'h-full'}`}>
+                                    {previewCover && <img className='w-full rounded-2xl mt-6 shadow' src={previewCover} alt="Preview Cover" />}
                               </div>
-                              <div className="flex gap-3">
-                                    <Button type="submit" color='dark'>Update</Button>
-                                    <Button color='light' onClick={handleBackPage}>Cancel</Button>
-                              </div>
-                        </form>
-                  </div>
-                  <div className="max-w-2xl w-full">
-                        {previewCover && <img className='w-full rounded-2xl mt-6 shadow' src={previewCover} alt="Preview Cover" />}
-                  </div>
-                  <ToastContainer
-                        position="bottom-right"
-                        autoClose={2000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="light"
-                        transition:Bounce />
+                        </div>
+                        <ToastContainer
+                              position="bottom-right"
+                              autoClose={2000}
+                              hideProgressBar={false}
+                              newestOnTop={false}
+                              closeOnClick
+                              rtl={false}
+                              pauseOnFocusLoss
+                              draggable
+                              pauseOnHover
+                              theme="light"
+                              transition:Bounce />
 
 
-            </div>
+                  </div>
+            </Card>
 
       );
 };

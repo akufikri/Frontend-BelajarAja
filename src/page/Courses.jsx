@@ -1,4 +1,4 @@
-import { Card, Button, TextInput, Spinner, Avatar } from 'flowbite-react';
+import { Card, Button, TextInput, Spinner, Avatar, Badge } from 'flowbite-react';
 import { HiSearch } from 'react-icons/hi';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -46,8 +46,8 @@ const Course = () => {
       });
 
       return (
-            <div className='container mx-auto flex flex-col items-center px-3 pt-20'>
-                  <div className="max-w-8xl w-full">
+            <div className='container mx-auto flex flex-col items-center px-3 pt-20 h-[80vh]'>
+                  <div className="max-w-6xl w-full">
                         <div className='my-5'>
                               <TextInput
                                     id="email4"
@@ -59,9 +59,7 @@ const Course = () => {
                                     onChange={(e) => setSearchQuery(e.target.value)}
                               />
                         </div>
-                        <div className='my-3'>
-                              <h1 className='font-medium'>Kelas ({filteredCourses.length})</h1>
-                        </div>
+
                         {loading ? (
                               <div className="h-96 ">
                                     <div className="flex justify-center items-center h-96">
@@ -71,44 +69,45 @@ const Course = () => {
                                     </div>
                               </div>
                         ) : (
-                              <div className="grid sm:grid-cols-4 grid-cols-1 gap-6">
+                              <div className="grid sm:grid-cols-3 grid-cols-1 gap-6">
                                     {filteredCourses.length === 0 ? (
-                                          <p>No results found for the given search query.</p>
-                                    ) : (
-                                          filteredCourses.map((course) => (
-                                                <div key={course.id}>
-                                                      <Card
-                                                            className="max-w-sm rounded-2xl border shadow-none" // Adjusted styling for consistency
-                                                            renderImage={() => (
-                                                                  <div className='p-2'>
-                                                                        <img
-                                                                              className='rounded-xl sm:h-56 w-full shadow-sm'
-                                                                              src={course.cover} // Ganti URL placeholder sesuai kebutuhan
-                                                                              alt={course.title}
-                                                                        />
-                                                                  </div>
-                                                            )}
-                                                      >
-                                                            <h5 className="sm:text-xl text-sm font-medium text-gray-900 dark:text-white">{course.title}</h5>
-                                                            <p className="font-normal text-sm text-gray-700 dark:text-gray-400">{course.description.length > 50 ? `${course.description.slice(0, 50)}...` : course.description}</p>
-                                                            <div className='me-auto mb-5 mt-3'>
-                                                                  <div className="flex gap-5">
-                                                                        <Avatar rounded />
-                                                                        <div className='mt-auto'>
-                                                                              <span className='font-semibold text-gray-400'>By {course.mentor.username}</span>
-                                                                              <span className='text-sm text-gray-600 block'>{course.mentor.email}</span>
+                                          <div className='absolute right-0 left-0 top-96'>
+                                                <h1 className='text-3xl text-center font-semibold'>No results found..</h1>
+                                          </div>
+                                    ) : (filteredCourses.map((course) => (
+                                          <div key={course.id}>
+                                                <Card
+                                                      className="w-full rounded-2xl border-0 shadow-md" // Adjusted styling for consistency
+                                                      renderImage={() => (
+                                                            <figure className='relative'>
+                                                                  {/* <Badge >Free</Badge> */}
+                                                                  <img
+                                                                        className='rounded-md sm:h-full w-full shadow-sm'
+                                                                        src={course.cover} // Ganti URL placeholder sesuai kebutuhan
+                                                                        alt={course.title}
+                                                                  />
+                                                                  {course.price === 0 && (
+                                                                        <div className="absolute top-0 right-0 left-0 justify-end flex p-2">
+                                                                              <span className='bg-blue-200 px-8 rounded-md text-blue-500'>GRATIS!</span>
                                                                         </div>
+                                                                  )}
+                                                            </figure>
+                                                      )}
+                                                >
+                                                      <a onClick={() => handleDetailCourse(course._id)} className="sm:text-lg text-sm font-medium text-gray-900 dark:text-white hover:underline cursor-pointer">{course.title}</a>
+                                                      <p className="font-normal text-xs text-gray-700 dark:text-gray-400">{course.description.length > 100 ? `${course.description.slice(0, 100)}...` : course.description}</p>
+                                                      <div className='me-auto mt-3'>
+                                                            <div className="flex gap-5">
+                                                                  <Avatar rounded />
+                                                                  <div className='mt-auto'>
+                                                                        <span className='font-semibold text-gray-400'>By {course.mentor.username}</span>
+                                                                        <span className='text-sm text-gray-600 block'>{course.mentor.email}</span>
                                                                   </div>
                                                             </div>
-                                                            <div className="grid">
-                                                                  <Button onClick={() => handleDetailCourse(course._id)} className='shadow' color='light'>
-                                                                        <i className="fa-regular fa-play"></i>
-                                                                        <span className="ms-2">Learn</span>
-                                                                  </Button>
-                                                            </div>
-                                                      </Card>
-                                                </div>
-                                          ))
+                                                      </div>
+
+                                                </Card>
+                                          </div>))
                                     )}
                               </div>
                         )}

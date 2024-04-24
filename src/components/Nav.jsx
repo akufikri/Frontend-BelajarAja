@@ -17,9 +17,6 @@ const Nav = () => {
             logout()
             window.location.href = '/'
       }
-      const handleClickSettings = () => {
-            window.location.href = '/user/settings';
-      }
       return (
             <>
                   <Navbar rounded className='fixed w-full z-30 sm:px-32 shadow-lg h-16'>
@@ -36,9 +33,7 @@ const Nav = () => {
                                                 <Dropdown.Header>
                                                       <span className="block truncate text-sm font-medium">{user.email}</span>
                                                 </Dropdown.Header>
-                                                <Dropdown.Item onClick={handleClickSettings}>Settings</Dropdown.Item>
-                                                <Dropdown.Item>My Course</Dropdown.Item>
-                                                <Dropdown.Divider />
+
                                                 <Dropdown.Item onClick={handleClickLogout}>SignOut</Dropdown.Item>
                                           </Dropdown>
                                     </>

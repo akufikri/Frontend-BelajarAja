@@ -1,4 +1,4 @@
-import { Button, Label, TextInput, FileInput, Textarea } from 'flowbite-react';
+import { Button, Label, TextInput, FileInput, Textarea, Card } from 'flowbite-react';
 import { useState } from 'react';
 import axios from 'axios';
 import { useAuthContext } from '../../hooks/authHooks';
@@ -40,7 +40,7 @@ const CreateCourse = () => {
                         setTimeout(() => {
                               navigate('/mentor/course');
                         }, 3000);
-                        toast.success('Course Berhasil Di Buat!', {
+                        toast.success('Successfully creating new course!, please wait...', {
                               position: "bottom-right",
                               autoClose: 2000,
                               hideProgressBar: false,
@@ -69,43 +69,47 @@ const CreateCourse = () => {
 
       return (
             <>
-                  <div className="sm:flex gap-7">
-                        <div className='max-w-xl w-full'>
-                              <form onSubmit={handleSubmit}>
-                                    <div className="mb-3">
-                                          <div className="mb-2 block">
-                                                <Label htmlFor="title" value="Title" />
+                  <Card className='border-l-8 border-l-blue-500 border-t-0 border-b-0 border-r-0'>
+                        <div className="sm:flex gap-7">
+                              <div className='max-w-xl w-full'>
+                                    <form onSubmit={handleSubmit}>
+                                          <div className="mb-3">
+                                                <div className="mb-2 block">
+                                                      <Label htmlFor="title" value="Title" />
+                                                </div>
+                                                <TextInput id="title" type="text" placeholder="Enter new title" onChange={(e) => setTitle(e.target.value)} value={title} />
                                           </div>
-                                          <TextInput id="title" type="text" placeholder="Enter new title" onChange={(e) => setTitle(e.target.value)} value={title} />
-                                    </div>
-                                    <div className="mb-3">
-                                          <div className="mb-2 block">
-                                                <Label htmlFor="price" value="Price" />
+                                          <div className="mb-3">
+                                                <div className="mb-2 block">
+                                                      <Label htmlFor="price" value="Price" />
+                                                </div>
+                                                <TextInput id="price" type="number" placeholder="Enter new price" onChange={(e) => setPrice(e.target.value)} value={price} />
                                           </div>
-                                          <TextInput id="price" type="number" placeholder="Enter new price" onChange={(e) => setPrice(e.target.value)} value={price} />
-                                    </div>
-                                    <div className="mb-3">
-                                          <div className="mb-2 block">
-                                                <Label htmlFor="cover" value="Cover" />
+                                          <div className="mb-3">
+                                                <div className="mb-2 block">
+                                                      <Label htmlFor="cover" value="Cover" />
+                                                </div>
+                                                <FileInput id="cover" sizing="sm" onChange={handleCoverChange} />
                                           </div>
-                                          <FileInput id="cover" sizing="sm" onChange={handleCoverChange} />
-                                    </div>
-                                    <div className="mb-3">
-                                          <div className="mb-2 block">
-                                                <Label htmlFor="description" value="Description" />
+                                          <div className="mb-3">
+                                                <div className="mb-2 block">
+                                                      <Label htmlFor="description" value="Description" />
+                                                </div>
+                                                <Textarea id="description" placeholder="Enter new description" rows={5} className='resize-none' onChange={(e) => setDescription(e.target.value)} value={description} />
                                           </div>
-                                          <Textarea id="description" placeholder="Enter new description" rows={5} className='resize-none' onChange={(e) => setDescription(e.target.value)} value={description} />
+                                          <div className="flex gap-3">
+                                                <Button type="submit" color='blue'>Create</Button>
+                                                <Button color='light' onClick={handleBackPage}>Cancle</Button>
+                                          </div>
+                                    </form>
+                              </div>
+                              <div className="max-w-2xl w-full">
+                                    <div className={`bg-gray-200 rounded-2xl ${previewCover ? 'h-auto' : 'h-full'}`}>
+                                          {previewCover && <img className='w-full rounded-2xl mt-6 shadow' src={previewCover} alt="Preview Cover" />}
                                     </div>
-                                    <div className="flex gap-3">
-                                          <Button type="submit" color='dark'>Create</Button>
-                                          <Button color='light' onClick={handleBackPage}>Cancle</Button>
-                                    </div>
-                              </form>
+                              </div>
                         </div>
-                        <div className="max-w-2xl w-full">
-                              {previewCover && <img className='w-full rounded-2xl mt-6 shadow' src={previewCover} alt="Preview Cover" />}
-                        </div>
-                  </div>
+                  </Card>
                   <ToastContainer
                         position="bottom-right"
                         autoClose={2000}

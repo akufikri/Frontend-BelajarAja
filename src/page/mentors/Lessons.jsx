@@ -1,4 +1,4 @@
-import { Button, Accordion } from 'flowbite-react';
+import { Button, Accordion, Card } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuthContext } from '../../hooks/authHooks';
@@ -131,62 +131,63 @@ const Lesson = () => {
 
       return (
             <>
-                  <div className="block max-w-5xl mx-auto">
-                        <div className="bg-gray-400 h-56 rounded-lg  ">
-                              <img src={cover} alt="" className='object-cover h-full w-full rounded-lg' />
-                        </div>
-                        <div className='my-7'>
-                              <Button color='light' onClick={handleRedirectCreate}>CREATE</Button>
-                        </div>
+                  <Card className='border-l-8 border-l-blue-500 border-t-0 border-b-0 border-r-0'>
+                        <div className="block max-w-5xl mx-auto w-full">
+                              <div className="bg-gray-400 h-56 rounded-lg  ">
+                                    <img src={cover} alt={cover} className='object-cover h-full w-full rounded-lg' />
+                              </div>
+                              <div className='my-7'>
+                                    <Button color='light' onClick={handleRedirectCreate}>CREATE</Button>
+                              </div>
+                              <div>
+                                    {lesson.length === 0 && <h1 className='text-center'>Tidak ada video yang tersedia!</h1>}
+                              </div>
 
-                        <div>
-                              {lesson.length === 0 && <h1>Tidak ada video yang tersedia!</h1>}
-                        </div>
+                              <div>
+                                    <Accordion collapseAll>
+                                          {lesson.map((lessonItem, index) => (
+                                                <Accordion.Panel key={lessonItem.id}>
+                                                      <Accordion.Title><i className="fa-light fa-video me-3"></i> {lessonItem.title} | {lessonItem.sequence} </Accordion.Title>
+                                                      <Accordion.Content>
+                                                            <div className="flex justify-between">
+                                                                  <div className="block">
+                                                                        <h1>Preview</h1>
+                                                                        <span>Durasi: {videoDurations[index]}</span> {/* Menampilkan durasi video */}
+                                                                  </div>
+                                                                  <div className="flex gap-2">
+                                                                        <Button onClick={() => redirectEditLesson(lessonItem._id)} color='light'>
+                                                                              <i className='fa-regular fa-pencil me-2'></i>
+                                                                              EDIT
+                                                                        </Button>
 
-                        <div>
-                              <Accordion collapseAll>
-                                    {lesson.map((lessonItem, index) => (
-                                          <Accordion.Panel key={lessonItem.id}>
-                                                <Accordion.Title><i className="fa-light fa-video me-3"></i> {lessonItem.title} | {lessonItem.sequence} </Accordion.Title>
-                                                <Accordion.Content>
-                                                      <div className="flex justify-between">
-                                                            <div className="block">
-                                                                  <h1>Preview</h1>
-                                                                  <span>Durasi: {videoDurations[index]}</span> {/* Menampilkan durasi video */}
+                                                                        <Button color='dark' onClick={() => handleDelete(lessonItem._id)}>
+                                                                              <i className='fa-regular fa-trash me-2'></i>
+                                                                              DELETE
+                                                                        </Button>
+                                                                  </div>
                                                             </div>
-                                                            <div className="flex gap-2">
-                                                                  <Button onClick={() => redirectEditLesson(lessonItem._id)} color='light'>
-                                                                        <i className='fa-regular fa-pencil me-2'></i>
-                                                                        EDIT
-                                                                  </Button>
-
-                                                                  <Button color='dark' onClick={() => handleDelete(lessonItem._id)}>
-                                                                        <i className='fa-regular fa-trash me-2'></i>
-                                                                        DELETE
-                                                                  </Button>
+                                                            <div className="my-7">
+                                                                  <div className="bg-gray-500 h-auto overflow-auto">
+                                                                        <ReactPlayer
+                                                                              url={lessonItem.video_url}
+                                                                              width={playerWidth}
+                                                                              alt='Thumbnail'
+                                                                              style={{ borderRadius: '0.25rem' }}
+                                                                              onDuration={(duration) => handleDuration(duration, index)} // Menangani perubahan durasi video
+                                                                        />
+                                                                  </div>
+                                                                  <div className='my-5'>
+                                                                        <h1 className='font-semibold uppercase'>{lessonItem.title}</h1>
+                                                                        <p className='text-sm'>{lessonItem.description}</p>
+                                                                  </div>
                                                             </div>
-                                                      </div>
-                                                      <div className="my-7">
-                                                            <div className="bg-gray-500 h-auto overflow-auto">
-                                                                  <ReactPlayer
-                                                                        url={lessonItem.video_url}
-                                                                        width={playerWidth}
-                                                                        alt='Thumbnail'
-                                                                        style={{ borderRadius: '0.25rem' }}
-                                                                        onDuration={(duration) => handleDuration(duration, index)} // Menangani perubahan durasi video
-                                                                  />
-                                                            </div>
-                                                            <div className='my-5'>
-                                                                  <h1 className='font-semibold uppercase'>{lessonItem.title}</h1>
-                                                                  <p className='text-sm'>{lessonItem.description}</p>
-                                                            </div>
-                                                      </div>
-                                                </Accordion.Content>
-                                          </Accordion.Panel>
-                                    ))}
-                              </Accordion>
+                                                      </Accordion.Content>
+                                                </Accordion.Panel>
+                                          ))}
+                                    </Accordion>
+                              </div>
                         </div>
-                  </div>
+                  </Card>
                   <ToastContainer
                         position="bottom-right"
                         autoClose={5000}

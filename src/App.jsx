@@ -14,7 +14,6 @@ import Courses from './page/mentors/Courses';
 import CreateCourse from './page/mentors/CreateCourse';
 import RegisterMentor from './page/RegisterMentor';
 import Dashboard from './page/mentors/Dashboard';
-import Breadcrumbs from './components/Breadcrumbs';
 import NavMentor from './components/NavMentor';
 import EditCourse from './page/mentors/EditCourse';
 import Lessons from './page/mentors/Lessons';
@@ -22,13 +21,15 @@ import CreateLesson from './page/mentors/CreateLesson';
 import DetailCourses from './page/DetailCourses';
 import Footers from './components/Footer';
 import EditLesson from './page/mentors/EditLesson';
+import Statistic from './page/mentors/Statistic';
+import Quiz from './page/mentors/Quiz';
+import CreateQuiz from './page/mentors/CreateQuiz';
 
 
 export default function App() {
   const { user } = useAuthContext()
   return (
     <div className='h-full'>
-
       <Routes>
         <Route path="/" element={
           <>
@@ -53,9 +54,7 @@ export default function App() {
         }></Route>
         <Route path='/kelas/:id/kelas' element={
           <>
-            <Nav />
             <DetailCourses />
-            <Footers />
           </>
         }>
         </Route>
@@ -92,8 +91,7 @@ export default function App() {
           <>
             {user && <Sidebars />}
             {user && <NavMentor />}
-            <div className={`p-4 ${user ? 'sm:ml-64 pt-20' : ''} `}>
-              <Breadcrumbs />
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-28 bg-cyan-100 h-screen' : ''} `}>
               {!user ? <Login /> : <Dashboard />}
             </div>
           </>
@@ -104,8 +102,7 @@ export default function App() {
           <>
             {user && <Sidebars />}
             {user && <NavMentor />}
-            <div className={`p-4 ${user ? 'sm:ml-64 pt-20' : ''} `}>
-              <Breadcrumbs />
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-28 bg-cyan-100 h-screen' : ''} `}>
               {!user ? <Login /> : <Courses />}
             </div>
           </>
@@ -115,8 +112,8 @@ export default function App() {
           <>
             {user && <Sidebars />}
             {user && <NavMentor />}
-            <div className={`p-4 ${user ? 'sm:ml-64 pt-20' : ''} `}>
-              <Breadcrumbs />
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-28 bg-cyan-100 h-screen' : ''} `}>
+
               {!user ? <Login /> : <CreateCourse />}
             </div>
           </>
@@ -127,8 +124,8 @@ export default function App() {
           <>
             {user && <Sidebars />}
             {user && <NavMentor />}
-            <div className={`p-4 ${user ? 'sm:ml-64 pt-20' : ''} `}>
-              <Breadcrumbs />
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-28 bg-cyan-100 h-screen' : ''} `}>
+
               {!user ? <Login /> : <EditCourse />}
             </div>
           </>
@@ -137,8 +134,8 @@ export default function App() {
           <>
             {user && <Sidebars />}
             {user && <NavMentor />}
-            <div className={`p-4 ${user ? 'sm:ml-64 pt-20' : ''} `}>
-              <Breadcrumbs />
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-28 bg-cyan-100 h-screen' : ''} `}>
+
               {!user ? <Login /> : <Lessons />}
             </div>
           </>
@@ -147,8 +144,8 @@ export default function App() {
           <>
             {user && <Sidebars />}
             {user && <NavMentor />}
-            <div className={`p-4 ${user ? 'sm:ml-64 pt-20' : ''} `}>
-              <Breadcrumbs />
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-28 bg-cyan-100 h-screen' : ''} `}>
+
               {!user ? <Login /> : <CreateLesson />}
             </div>
           </>
@@ -157,13 +154,43 @@ export default function App() {
           <>
             {user && <Sidebars />}
             {user && <NavMentor />}
-            <div className={`p-4 ${user ? 'sm:ml-64 pt-20' : ''} `}>
-              <Breadcrumbs />
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-28 bg-cyan-100 h-screen' : ''} `}>
+
               {!user ? <Login /> : <EditLesson />}
             </div>
           </>
         }></Route>
+        <Route path='/mentor/statistic' element={
+          <>
+            {user && <Sidebars />}
+            {user && <NavMentor />}
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-28 bg-cyan-100 h-screen' : ''} `}>
+              {!user ? <Login /> : <Statistic />}
+            </div>
+          </>
+        }>
+        </Route>
+        <Route path='/mentor/quiz' element={
+          <>
+            {user && <Sidebars />}
+            {user && <NavMentor />}
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-28 bg-cyan-100 h-screen' : ''} `}>
+              {!user ? <Login /> : <Quiz />}
+            </div>
+          </>
+        }>
+        </Route>
+        <Route path='/mentor/create/quiz' element={
+          <>
+            {user && <Sidebars />}
+            {user && <NavMentor />}
+            <div className={`p-4 ${user ? 'sm:ml-64 pt-28 bg-cyan-100 h-screen' : ''} `}>
+              {!user ? <Login /> : <CreateQuiz />}
+            </div>
+          </>
+        }>
 
+        </Route>
 
         {/* Mentor Route */}
         <Route path='*' element={<Notfound />}></Route>
