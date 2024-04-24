@@ -1,4 +1,4 @@
-import { Button, Label, TextInput, Textarea } from 'flowbite-react';
+import { Button, Card, Label, TextInput, Textarea } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios'
@@ -56,7 +56,7 @@ const EditLesson = () => {
 
                   if (res.status === 200) {
                         // Memperbarui notifikasi untuk menunjukkan bahwa data berhasil diperbarui
-                        toast.success('Lesson berhasil diperbarui!', {
+                        toast.success('Lesson successfully update, please wait...', {
                               position: "bottom-right",
                               autoClose: 5000,
                               hideProgressBar: false,
@@ -86,40 +86,42 @@ const EditLesson = () => {
 
       return (
             <>
-                  <div className="sm:flex gap-7">
-                        <div className='max-w-xl w-full'>
-                              <form onSubmit={handleSubmit}>
-                                    <div className="mb-3">
-                                          <div className="mb-2 block">
-                                                <Label htmlFor="title" value="Title" />
+                  <Card className='max-w-3xl border-l-8 border-l-blue-500 border-t-0 border-b-0 border-r-0'>
+                        <div className="sm:flex gap-7">
+                              <div className='max-w-3xl w-full'>
+                                    <form onSubmit={handleSubmit}>
+                                          <div className="mb-3">
+                                                <div className="mb-2 block">
+                                                      <Label htmlFor="title" value="Title" />
+                                                </div>
+                                                <TextInput id="title" type="text" placeholder="Enter new title" value={title} onChange={(e) => setTitle(e.target.value)} />
                                           </div>
-                                          <TextInput id="title" type="text" placeholder="Enter new title" value={title} onChange={(e) => setTitle(e.target.value)} />
-                                    </div>
-                                    <div className="mb-3">
-                                          <div className="mb-2 block">
-                                                <Label htmlFor="sequence" value="Sequence" />
+                                          <div className="mb-3">
+                                                <div className="mb-2 block">
+                                                      <Label htmlFor="sequence" value="Sequence" />
+                                                </div>
+                                                <TextInput id="sequence" type="number" placeholder="Enter new sequence" value={sequence} onChange={(e) => setSequence(e.target.value)} />
                                           </div>
-                                          <TextInput id="sequence" type="number" placeholder="Enter new sequence" value={sequence} onChange={(e) => setSequence(e.target.value)} />
-                                    </div>
-                                    <div className="mb-3">
-                                          <div className="mb-2 block">
-                                                <Label htmlFor="videoUrl" value="Video Url" />
+                                          <div className="mb-3">
+                                                <div className="mb-2 block">
+                                                      <Label htmlFor="videoUrl" value="Video Url" />
+                                                </div>
+                                                <TextInput id="videoUrl" type="url" placeholder="Enter video URL" value={video_url} onChange={(e) => setVideoUrl(e.target.value)} />
                                           </div>
-                                          <TextInput id="videoUrl" type="url" placeholder="Enter video URL" value={video_url} onChange={(e) => setVideoUrl(e.target.value)} />
-                                    </div>
-                                    <div className="mb-3">
-                                          <div className="mb-2 block">
-                                                <Label htmlFor="description" value="Description" />
+                                          <div className="mb-3">
+                                                <div className="mb-2 block">
+                                                      <Label htmlFor="description" value="Description" />
+                                                </div>
+                                                <Textarea id="description" placeholder="Enter new description" rows={5} className='resize-none' value={description} onChange={(e) => setDescription(e.target.value)} />
                                           </div>
-                                          <Textarea id="description" placeholder="Enter new description" rows={5} className='resize-none' value={description} onChange={(e) => setDescription(e.target.value)} />
-                                    </div>
-                                    <div className="flex gap-3">
-                                          <Button type="submit" color='dark'>Update</Button>
-                                          <Button color='light' onClick={() => navigate(`/mentor/lesson/${id}`)}>Cancel</Button>
-                                    </div>
-                              </form>
+                                          <div className="flex gap-3">
+                                                <Button type="submit" color='dark'>Update</Button>
+                                                <Button color='light' onClick={() => navigate(`/mentor/lesson/${id}`)}>Cancel</Button>
+                                          </div>
+                                    </form>
+                              </div>
                         </div>
-                  </div>
+                  </Card>
                   <ToastContainer
                         position="bottom-right"
                         autoClose={5000}

@@ -1,4 +1,4 @@
-import { Table, Button, Modal, Pagination } from 'flowbite-react';
+import { Table, Button, Modal, Pagination, Card } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -25,7 +25,7 @@ const Courses = () => {
       const navigate = useNavigate();
       const { user } = useAuthContext();
       const [currentPage, setCurrentPage] = useState(1);
-
+      const [showNoCoursesMessage, setShowNoCoursesMessage] = useState(false);
       const fetchData = async () => {
             try {
                   const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}course/mycourse`, {
@@ -97,22 +97,32 @@ const Courses = () => {
       const indexOfFirstItem = indexOfLastItem - itemsPerPage;
       const currentCourses = courses.slice(indexOfFirstItem, indexOfLastItem);
 
+      const renderNoCoursesMessage = () => {
+            if (showNoCoursesMessage) {
+                  return (
+                        <p className='text-center text-2xl font-semibold mt-10 text-gray-600'>Tidak ada kelas tersedia</p>
+                  );
+            }
+            return null;
+      };
       return (
             <>
-                  <div className='mt-10'>
+                  <div >
                         <div className='mb-5 flex gap-4'>
-                              <Button onClick={handleClickCreate} color='dark' size="sm"><i className="fa-regular fa-circle-plus me-3"></i>  <span>Create</span></Button>
+                              <Button onClick={handleClickCreate} color='light' size="sm" className='transition shadow-md'><i className="fa-regular fa-circle-plus me-3"></i>  <span>Create</span></Button>
                         </div>
-                        <div className="overflow-x-auto">
+
+
+                        <div className="overflow-x-auto shadow-md rounded-2xl">
                               {currentCourses.length > 0 ? (
-                                    <Table striped>
+                                    <Table striped >
                                           <Table.Head>
-                                                <Table.HeadCell className='bg-gray-900 text-white font-normal '>No</Table.HeadCell>
-                                                <Table.HeadCell className='bg-gray-900 text-white font-normal '>Title</Table.HeadCell>
-                                                <Table.HeadCell className='bg-gray-900 text-white font-normal '>Cover</Table.HeadCell>
-                                                <Table.HeadCell className='bg-gray-900 text-white font-normal '>Description</Table.HeadCell>
-                                                <Table.HeadCell className='bg-gray-900 text-white font-normal '>Price</Table.HeadCell>
-                                                <Table.HeadCell className='bg-gray-900 text-white font-normal '>
+                                                <Table.HeadCell className='bg-blue-500 text-white font-normal '>No</Table.HeadCell>
+                                                <Table.HeadCell className='bg-blue-500 text-white font-normal '>Title</Table.HeadCell>
+                                                <Table.HeadCell className='bg-blue-500 text-white font-normal '>Cover</Table.HeadCell>
+                                                <Table.HeadCell className='bg-blue-500 text-white font-normal '>Description</Table.HeadCell>
+                                                <Table.HeadCell className='bg-blue-500 text-white font-normal '>Price</Table.HeadCell>
+                                                <Table.HeadCell className='bg-blue-500 text-white font-normal '>
                                                       <span className="sr-only">Edit</span>
                                                 </Table.HeadCell>
                                           </Table.Head>
@@ -124,19 +134,19 @@ const Courses = () => {
                                                                   {course.title}
                                                             </Table.Cell>
                                                             <Table.Cell>
-                                                                  <img src={course.cover} alt="" className='h-20 rounded-lg' />
+                                                                  <img src={course.cover} alt="" className='h-20 rounded-lg img-fluid' />
                                                             </Table.Cell>
                                                             <Table.Cell> {course.description.length > 70 ? `${course.description.slice(0, 70)}...` : course.description}</Table.Cell>
                                                             <Table.Cell>  {formatPrice(course.price)}</Table.Cell>
                                                             <Table.Cell>
                                                                   <div className="flex gap-4">
-                                                                        <button onClick={() => { handleRedirectLesson(course._id) }}>
-                                                                              <i className="fa-regular fa-video me-3"></i>
+                                                                        <button className='shadow h-8 w-8 rounded-full bg-gray-800 text-white' onClick={() => { handleRedirectLesson(course._id) }}>
+                                                                              <i className="fa-regular fa-video "></i>
                                                                         </button>
-                                                                        <button type='button' onClick={() => { setCourseToDelete(course._id); setOpenModal(true); }}>
+                                                                        <button className='shadow h-8 w-8 rounded-full bg-gray-800 text-white' type='button' onClick={() => { setCourseToDelete(course._id); setOpenModal(true); }}>
                                                                               <i className="fa-regular fa-trash"></i>
                                                                         </button>
-                                                                        <button type='button' onClick={() => handleEditCourse(course._id)}>
+                                                                        <button className='shadow h-8 w-8 rounded-full bg-gray-800 text-white' type='button' onClick={() => handleEditCourse(course._id)}>
                                                                               <i className="fa-regular fa-pen-to-square"></i>
                                                                         </button>
                                                                   </div>
@@ -146,11 +156,10 @@ const Courses = () => {
                                           </Table.Body>
                                     </Table>
                               ) : (
-                                    <>
-                                          <p className='text-center text-2xl font-semibold mt-10 text-gray-600'>Tidak ada kelas tersedia</p>
-                                    </>
+                                    renderNoCoursesMessage()
                               )}
                         </div>
+
 
                         {/* Pagination */}
                         {courses.length > itemsPerPage && (
@@ -174,14 +183,14 @@ const Courses = () => {
                                     <div className="text-center">
                                           <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
                                           <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                Yakin anda ingin menghapus ?
+                                                Are you sure can delete this ?
                                           </h3>
                                           <div className="flex justify-center gap-4">
                                                 <Button color="failure" onClick={handleDelete}>
-                                                      {"Yes, saya ingin"}
+                                                      {"Yes, i deleted"}
                                                 </Button>
                                                 <Button color="gray" onClick={() => setOpenModal(false)}>
-                                                      No, tidak
+                                                      No, i deleted
                                                 </Button>
                                           </div>
                                     </div>
